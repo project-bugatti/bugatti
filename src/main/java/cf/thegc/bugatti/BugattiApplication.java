@@ -1,0 +1,15 @@
+package cf.thegc.bugatti;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+@SpringBootApplication
+@EnableJpaAuditing
+public class BugattiApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BugattiApplication.class, args);
+	}
+
+}
