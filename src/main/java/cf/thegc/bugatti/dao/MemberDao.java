@@ -14,6 +14,6 @@ public interface MemberDao {
 
     int updateMemberById(UUID memberId, Member member);
 
-    Boolean toggleActiveStatus();
+    Boolean toggleActive(UUID memberId);
 
 }

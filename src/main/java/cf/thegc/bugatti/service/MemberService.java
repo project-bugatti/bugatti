@@ -31,7 +31,7 @@ public class MemberService {
         return memberDao.updateMemberById(memberId, member);
     }
 
-    public Boolean toggleActiveStatus() {
-        return memberDao.toggleActiveStatus();
+    public Boolean toggleActive(UUID memberId) {
+        return memberDao.toggleActive(memberId);
     }
 }

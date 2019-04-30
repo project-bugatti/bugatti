@@ -19,17 +19,48 @@ public class PostgresDataAccessService implements QuoteDao, MemberDao {
         this.memberRepository = memberRepository;
     }
 
+    // Member methods
+
     @Override
+    public List<Member> getAllMembers() {
+        return memberRepository.findAll();
+    }
+
+    @Override
+    public Optional<Member> getMemberById(UUID memberId) {
+        return memberRepository.findById(memberId);
+    }
+
+    @Override
+    public int updateMemberById(UUID memberId, Member newMember) {
+        return getMemberById(memberId).map(existingMember -> {
+            if (newMember.getNickname() != null) {
+                existingMember.setNickname(newMember.getNickname());
+            }
+            if (newMember.getPhone() != null) {
+                existingMember.setPhone(newMember.getPhone());
+            }
+            memberRepository.save(existingMember);
+            return 1;
+        }).orElse(0);
+    }
+
+    @Override
+    public Boolean toggleActive(UUID memberId) {
+        return getMemberById(memberId).map(Member::toggleActive).orElse(null);
+    }
+
+    // Quote methods
+
+    @Override
+
     public List<Quote> getAllQuotes() {
         return quoteRepository.findAll();
     }
 
     @Override
     public Quote addQuote(UUID quoteId, Quote quote) {
-        return quoteRepository.save(new Quote(quote.getQuoteText(),
-                quote.getAuthorMemberId(),
-                quote.getVisible(),
-                quote.getQuoteDate()));
+        return quoteRepository.save(quote);
     }
 
     @Override
@@ -51,25 +82,5 @@ public class PostgresDataAccessService implements QuoteDao, MemberDao {
     public int deleteQuoteById(UUID quoteId) {
         quoteRepository.deleteById(quoteId);
         return 1;
-    }
-
-    @Override
-    public List<Member> getAllMembers() {
-        return memberRepository.findAll();
-    }
-
-    @Override
-    public Optional<Member> getMemberById(UUID memberId) {
-        return memberRepository.findById(memberId);
-    }
-
-    @Override
-    public int updateMemberById(UUID memberId, Member member) {
-        return 0;
-    }
-
-    @Override
-    public Boolean toggleActiveStatus() {
-        return null;
     }
 }

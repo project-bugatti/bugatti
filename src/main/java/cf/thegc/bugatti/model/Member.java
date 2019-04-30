@@ -1,5 +1,6 @@
 package cf.thegc.bugatti.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ public class Member extends AuditModel {
 
     @Id
     @Column(name = "member_id")
+    @JsonProperty("member_id")
     @GeneratedValue(generator = "member_generator")
     @GenericGenerator(
             name = "member_generator",
@@ -20,23 +22,28 @@ public class Member extends AuditModel {
     private UUID memberId;
 
     @Column(name = "firstname")
+    @JsonProperty("firstname")
     private String firstname;
 
     @Column(name = "lastname")
+    @JsonProperty("lastname")
     private String lastname;
 
     @Column(name = "nickname")
+    @JsonProperty("nickname")
     private String nickname;
 
     @Column(name = "phone")
+    @JsonProperty("phone")
     private String phone;
 
     @Column(name = "is_active")
+    @JsonProperty("is_active")
     private boolean isActive;
 
-    @ManyToOne
+    @JsonProperty("quotes")
+    @JoinColumn(name="member_id")
     private List<Quote> quotes;
-
 
     public UUID getMemberId() {
         return memberId;
@@ -70,7 +77,8 @@ public class Member extends AuditModel {
         return isActive;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public Boolean toggleActive() {
+        isActive = !isActive;
+        return isActive;
     }
 }
