@@ -47,15 +47,15 @@ public class Quote extends AuditModel {
         this.quoteText = quoteText;
     }
 
-    public Member getAuthor() {
-        return author;
-    }
-
     public Boolean getVisible() {
         return isVisible;
     }
 
     public Long getQuoteDate() {
         return quoteDate;
+    }
+
+    public Member getAuthor() {
+        return author;
     }
 }

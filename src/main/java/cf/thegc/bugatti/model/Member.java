@@ -81,4 +81,8 @@ public class Member extends AuditModel {
         isActive = !isActive;
         return isActive;
     }
+
+    public List<Quote> getQuotes() {
+        return quotes;
+    }
 }
