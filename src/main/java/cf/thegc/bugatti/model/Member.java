@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -41,24 +42,24 @@ public class Member extends AuditModel {
     @JsonProperty("is_active")
     private boolean isActive;
 
+    @Transient
     @JsonProperty("quotes")
-    @JoinColumn(name="member_id")
     private List<Quote> quotes;
 
     public UUID getMemberId() {
-        return memberId;
+        return this.memberId;
     }
 
     public String getFirstname() {
-        return firstname;
+        return this.firstname;
     }
 
     public String getLastname() {
-        return lastname;
+        return this.lastname;
     }
 
     public String getNickname() {
-        return nickname;
+        return this.nickname;
     }
 
     public void setNickname(String nickname) {
@@ -66,7 +67,7 @@ public class Member extends AuditModel {
     }
 
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
 
     public void setPhone(String phone) {
@@ -74,15 +75,19 @@ public class Member extends AuditModel {
     }
 
     public boolean isActive() {
-        return isActive;
+        return this.isActive;
     }
 
     public Boolean toggleActive() {
         isActive = !isActive;
-        return isActive;
+        return this.isActive;
     }
 
     public List<Quote> getQuotes() {
         return quotes;
+    }
+
+    public void setQuotes(List<Quote> quotes) {
+        this.quotes = quotes;
     }
 }

@@ -32,8 +32,9 @@ public class Quote extends AuditModel {
     private Long quoteDate;
 
     @JsonProperty("member")
+    @ManyToOne
     @JoinColumn(name = "author_member_id")
-    private Member author;
+    private Member member;
 
     public UUID getQuoteId() {
         return quoteId;
@@ -55,7 +56,7 @@ public class Quote extends AuditModel {
         return quoteDate;
     }
 
-    public Member getAuthor() {
-        return author;
+    public Member getMember() {
+        return member;
     }
 }
