@@ -28,4 +28,5 @@ HELP.md
 ### VS Code ###
 .vscode/
 
-### Properties File for Connecting to Postgres ###
+### Properties File for Datasource ###
+/src/main/resources/datasource.properties
