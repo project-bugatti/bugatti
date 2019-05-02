@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface MemberDao {
-
     Page<LimitedMember> getMembers(Pageable pageable);
 
     Optional<Member> getMemberById(UUID memberId);

@@ -41,7 +41,7 @@ public class Member extends AuditModel {
 
     @Column(name = "active")
     @JsonProperty("active")
-    private Boolean active;
+    private Boolean active = true;
 
     @JsonProperty("quotes")
     @OneToMany(mappedBy = "member")
@@ -107,5 +107,29 @@ public class Member extends AuditModel {
     public Boolean toggleActive() {
         this.active = !active;
         return this.active;
+    }
+
+    @Override
+    public String toString() {
+
+        /*
+        George Washington ("Georgie")
+            Phone: 9127894512
+            Status: active
+            ID: b74f56ff-b560-4a25-b48a-daf7f1b6ff51
+         */
+
+        StringBuilder memberBuilder = new StringBuilder();
+        memberBuilder
+                .append(firstname).append(" ").append(lastname);
+        if(nickname != null) {
+            memberBuilder.append(" (\"").append(nickname).append("\")");
+        }
+        memberBuilder
+                .append("\n\t")
+                .append("Phone: ").append(phone).append("\n\t")
+                .append("Status: ").append(active ? "active" : "inactive").append("\n\t")
+                .append("ID: ").append(memberId);
+        return memberBuilder.toString();
     }
 }

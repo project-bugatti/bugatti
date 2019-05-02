@@ -15,6 +15,9 @@ import java.util.UUID;
 
 @Service
 public class MemberService {
+
+    public static final String ERROR_NO_MEMBER_EXISTS = "No member exists";
+
     private final MemberDao memberDao;
 
     @Autowired

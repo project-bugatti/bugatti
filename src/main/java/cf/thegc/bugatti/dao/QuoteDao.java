@@ -8,12 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface QuoteDao {
-    Quote addQuote(UUID quoteId, Quote quote);
-
-    default Quote addQuote(Quote quote) {
-        UUID quoteId = UUID.randomUUID();
-        return addQuote(quoteId, quote);
-    }
+    Quote addQuote(Quote quote);
 
     Page<Quote> getQuotes(Pageable pageable);
 
