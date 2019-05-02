@@ -1,8 +1,9 @@
 package cf.thegc.bugatti.dao;
 
 import cf.thegc.bugatti.model.Quote;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public interface QuoteDao {
         return addQuote(quoteId, quote);
     }
 
-    List<Quote> getAllQuotes();
+    Page<Quote> getQuotes(Pageable pageable);
 
     Optional<Quote> getQuoteById(UUID quoteId);
 

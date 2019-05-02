@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -57,9 +56,8 @@ public class PostgresDataAccessService implements QuoteDao, MemberDao {
     // Quote methods
 
     @Override
-
-    public List<Quote> getAllQuotes() {
-        return quoteRepository.findAll();
+    public Page<Quote> getQuotes(Pageable pageable) {
+        return quoteRepository.getAllBy(pageable);
     }
 
     @Override

@@ -3,6 +3,9 @@ package cf.thegc.bugatti.api;
 import cf.thegc.bugatti.model.Quote;
 import cf.thegc.bugatti.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.UUID;
 @RestController
 public class QuoteController {
 
+    private static final int QUOTES_PAGE_SIZE = 25;
     private final QuoteService quoteService;
 
     @Autowired
@@ -20,8 +24,9 @@ public class QuoteController {
     }
 
     @GetMapping
-    public List<Quote> getAllQuotes() {
-        return quoteService.getAllQuotes();
+    public List<Quote> getQuotes(@PageableDefault(size = QUOTES_PAGE_SIZE) Pageable pageable) {
+        Page page = quoteService.getQuotes(pageable);
+        return page.getContent();
     }
 
     @PostMapping

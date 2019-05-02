@@ -4,6 +4,8 @@ import cf.thegc.bugatti.dao.LimitedMember;
 import cf.thegc.bugatti.model.Member;
 import cf.thegc.bugatti.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -16,6 +18,7 @@ import java.util.UUID;
 @RestController
 public class MemberController {
 
+    private static final int MEMBERS_PAGE_SIZE = 25;
     private final MemberService memberService;
 
     @Autowired
@@ -24,7 +27,7 @@ public class MemberController {
     }
 
     @GetMapping
-    public List<LimitedMember> getMembers(@PageableDefault(value=3, page = 0)Pageable pageable) {
+    public List<LimitedMember> getMembers(@PageableDefault(size = MEMBERS_PAGE_SIZE ) Pageable pageable) {
         Page page = memberService.getMembers(pageable);
         return page.getContent();
     }

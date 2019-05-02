@@ -4,6 +4,8 @@ import cf.thegc.bugatti.dao.QuoteDao;
 import cf.thegc.bugatti.model.Quote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +30,8 @@ public class QuoteService {
         return quoteDao.addQuote(quote);
     }
 
-    public List<Quote> getAllQuotes() {
-        return quoteDao.getAllQuotes();
+    public Page<Quote> getQuotes(Pageable pageable) {
+        return quoteDao.getQuotes(pageable);
     }
 
     public Optional<Quote> getQuoteById(UUID quoteId) {
