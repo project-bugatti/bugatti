@@ -1,5 +1,6 @@
 package cf.thegc.bugatti.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -38,28 +39,41 @@ public class Member extends AuditModel {
     @JsonProperty("phone")
     private String phone;
 
-    @Column(name = "is_active")
-    @JsonProperty("is_active")
-    private boolean isActive;
+    @Column(name = "active")
+    @JsonProperty("active")
+    private Boolean active;
 
-    @Transient
     @JsonProperty("quotes")
+    @OneToMany(mappedBy = "member")
+    @JsonIgnoreProperties("member") // prevent recursion / stack overflow
     private List<Quote> quotes;
 
     public UUID getMemberId() {
-        return this.memberId;
+        return memberId;
+    }
+
+    public void setMemberId(UUID memberId) {
+        this.memberId = memberId;
     }
 
     public String getFirstname() {
-        return this.firstname;
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {
-        return this.lastname;
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getNickname() {
-        return this.nickname;
+        return nickname;
     }
 
     public void setNickname(String nickname) {
@@ -67,20 +81,19 @@ public class Member extends AuditModel {
     }
 
     public String getPhone() {
-        return this.phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public boolean isActive() {
-        return this.isActive;
+    public Boolean getActive() {
+        return active;
     }
 
-    public Boolean toggleActive() {
-        isActive = !isActive;
-        return this.isActive;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public List<Quote> getQuotes() {
@@ -89,5 +102,10 @@ public class Member extends AuditModel {
 
     public void setQuotes(List<Quote> quotes) {
         this.quotes = quotes;
+    }
+
+    public Boolean toggleActive() {
+        this.active = !active;
+        return this.active;
     }
 }

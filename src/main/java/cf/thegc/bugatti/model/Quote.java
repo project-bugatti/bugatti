@@ -1,5 +1,6 @@
 package cf.thegc.bugatti.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -34,10 +35,15 @@ public class Quote extends AuditModel {
     @JsonProperty("member")
     @ManyToOne
     @JoinColumn(name = "author_member_id")
+    @JsonIgnoreProperties("quotes") // prevent recursion / stack overflow
     private Member member;
 
     public UUID getQuoteId() {
         return quoteId;
+    }
+
+    public void setQuoteId(UUID quoteId) {
+        this.quoteId = quoteId;
     }
 
     public String getQuoteText() {
@@ -52,11 +58,23 @@ public class Quote extends AuditModel {
         return isVisible;
     }
 
+    public void setVisible(Boolean visible) {
+        isVisible = visible;
+    }
+
     public Long getQuoteDate() {
         return quoteDate;
     }
 
+    public void setQuoteDate(Long quoteDate) {
+        this.quoteDate = quoteDate;
+    }
+
     public Member getMember() {
         return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }

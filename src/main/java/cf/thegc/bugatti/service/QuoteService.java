@@ -20,6 +20,10 @@ public class QuoteService {
         this.quoteDao = quoteDao;
     }
 
+    /**
+     * @param quote The new quote to insert
+     * @return The quote that was successfully inserted, which includes the quote identifier
+     */
     public Quote addQuote(Quote quote) {
         return quoteDao.addQuote(quote);
     }

@@ -1,9 +1,12 @@
 package cf.thegc.bugatti.service;
 
+import cf.thegc.bugatti.dao.LimitedMember;
 import cf.thegc.bugatti.dao.MemberDao;
 import cf.thegc.bugatti.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +22,8 @@ public class MemberService {
         this.memberDao = memberDao;
     }
 
-    public List<Member> getAllMembers() {
-        return memberDao.getAllMembers();
+    public Page<LimitedMember> getMembers(Pageable pageable) {
+        return memberDao.getMembers(pageable);
     }
 
     public Optional<Member> getMemberById(UUID memberId) {

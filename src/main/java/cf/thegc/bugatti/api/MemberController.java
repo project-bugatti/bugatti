@@ -1,8 +1,12 @@
 package cf.thegc.bugatti.api;
 
+import cf.thegc.bugatti.dao.LimitedMember;
 import cf.thegc.bugatti.model.Member;
 import cf.thegc.bugatti.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +24,9 @@ public class MemberController {
     }
 
     @GetMapping
-    public List<Member> getAllMembers() {
-        return memberService.getAllMembers();
+    public List<LimitedMember> getMembers(@PageableDefault(value=3, page = 0)Pageable pageable) {
+        Page page = memberService.getMembers(pageable);
+        return page.getContent();
     }
 
     @GetMapping(path = "{memberId}")

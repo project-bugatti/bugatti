@@ -2,6 +2,8 @@ package cf.thegc.bugatti.dao;
 
 import cf.thegc.bugatti.model.Member;
 import cf.thegc.bugatti.model.Quote;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,16 +16,18 @@ public class PostgresDataAccessService implements QuoteDao, MemberDao {
     private final QuoteRepository quoteRepository;
     private final MemberRepository memberRepository;
 
-    public PostgresDataAccessService(QuoteRepository quoteRepository, MemberRepository memberRepository) {
+    public PostgresDataAccessService(QuoteRepository quoteRepository,
+                                     MemberRepository memberRepository) {
         this.quoteRepository = quoteRepository;
         this.memberRepository = memberRepository;
     }
 
     // Member methods
 
+
     @Override
-    public List<Member> getAllMembers() {
-        return memberRepository.findAll();
+    public Page<LimitedMember> getMembers(Pageable pageable) {
+        return memberRepository.getAllBy(pageable);
     }
 
     @Override
