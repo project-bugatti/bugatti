@@ -1,9 +1,8 @@
 package cf.thegc.bugatti.api;
 
-import cf.thegc.bugatti.model.Member;
 import cf.thegc.bugatti.model.Quote;
-import cf.thegc.bugatti.service.MemberService;
 import cf.thegc.bugatti.service.QuoteService;
+import com.sun.org.apache.xpath.internal.operations.Quo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,8 +33,8 @@ public class QuoteController {
     }
 
     @PostMapping
-    private Quote addQuote(@RequestBody Quote incomingQuote) throws ApiPostException {
-        return quoteService.addQuote(incomingQuote);
+    private ResponseEntity<Quote> addQuote(@RequestBody Quote incomingQuote) {
+        return new ResponseEntity<>(quoteService.addQuote(incomingQuote), HttpStatus.OK);
     }
 
     @GetMapping(path = "{quoteId}")

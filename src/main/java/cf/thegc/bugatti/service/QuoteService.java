@@ -1,9 +1,9 @@
 package cf.thegc.bugatti.service;
 
-import cf.thegc.bugatti.api.ApiPostException;
 import cf.thegc.bugatti.dao.MemberDao;
 import cf.thegc.bugatti.dao.QuoteDao;
 import cf.thegc.bugatti.model.Member;
+import cf.thegc.bugatti.exception.MemberNotFoundException;
 import cf.thegc.bugatti.model.Quote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,13 +18,13 @@ import java.util.UUID;
 public class QuoteService {
 
     private final QuoteDao quoteDao;
-    private final MemberDao memberDao;
+    private final MemberService memberService;
 
     @Autowired
     public QuoteService(@Qualifier("postgres") QuoteDao quoteDao,
-                        @Qualifier("postgres") MemberDao memberDao) {
+                        MemberService memberService) {
         this.quoteDao = quoteDao;
-        this.memberDao = memberDao;
+        this.memberService = memberService;
     }
 
     /**
@@ -36,14 +35,10 @@ public class QuoteService {
      * @param incomingQuote The quote to be inserted
      * @return The quote that was successfully inserted, which includes the quote identifier
      */
-    public Quote addQuote(Quote incomingQuote) throws ApiPostException {
-        Member author = memberDao.getMemberById(incomingQuote.getMember().getMemberId()).orElse(null);
-        if (author == null) {
-            throw new ApiPostException(MemberService.ERROR_NO_MEMBER_EXISTS);
-        }
-
+    public Quote addQuote(Quote incomingQuote) {
+        Optional <Member> author = memberService.getMemberById(incomingQuote.getMember().getMemberId());
         Quote newQuote = quoteDao.addQuote(incomingQuote);
-        newQuote.setMember(author);
+        newQuote.setMember(author.get()); // Member service handles non-present member
         return newQuote;
     }
 
