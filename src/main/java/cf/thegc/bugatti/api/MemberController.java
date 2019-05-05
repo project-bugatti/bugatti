@@ -27,24 +27,18 @@ public class MemberController {
     }
 
     @GetMapping
-    public List<LimitedMember> getMembers(@PageableDefault(size = MEMBERS_PAGE_SIZE ) Pageable pageable) {
+    public List getMembers(@PageableDefault(size = MEMBERS_PAGE_SIZE ) Pageable pageable) {
         Page page = memberService.getMembers(pageable);
         return page.getContent();
     }
 
     @GetMapping(path = "{memberId}")
     public Member getMemberById(@PathVariable("memberId") UUID memberId) {
-        return memberService.getMemberById(memberId).orElse(null);
+        return memberService.getMemberById(memberId);
     }
 
     @PutMapping(path = "{memberId}")
     public void updateMemberById(@PathVariable("memberId") UUID memberId, @RequestBody Member member) {
-        memberService.updateMemberById(memberId, member);
-    }
-
-    @GetMapping
-    @RequestMapping("/toggleStatus")
-    public void toggleActive(@PathVariable("memberId") UUID memberId) {
-        memberService.toggleActive(memberId);
+        memberService.updateMember(memberId, member);
     }
 }

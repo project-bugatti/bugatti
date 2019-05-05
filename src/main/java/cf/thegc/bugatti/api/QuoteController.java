@@ -2,7 +2,6 @@ package cf.thegc.bugatti.api;
 
 import cf.thegc.bugatti.model.Quote;
 import cf.thegc.bugatti.service.QuoteService;
-import com.sun.org.apache.xpath.internal.operations.Quo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,19 +26,19 @@ public class QuoteController {
     }
 
     @GetMapping
-    public List<Quote> getQuotes(@PageableDefault(size = QUOTES_PAGE_SIZE) Pageable pageable) {
+    public List getQuotes(@PageableDefault(size = QUOTES_PAGE_SIZE) Pageable pageable) {
         Page page = quoteService.getQuotes(pageable);
         return page.getContent();
-    }
-
-    @PostMapping
-    private ResponseEntity<Quote> addQuote(@RequestBody Quote incomingQuote) {
-        return new ResponseEntity<>(quoteService.addQuote(incomingQuote), HttpStatus.OK);
     }
 
     @GetMapping(path = "{quoteId}")
     public Quote getQuoteById(@PathVariable("quoteId") UUID quoteId) {
         return quoteService.getQuoteById(quoteId).orElse(null);
+    }
+
+    @PostMapping
+    private ResponseEntity<Quote> addQuote(@RequestBody Quote incomingQuote) {
+        return new ResponseEntity<>(quoteService.addQuote(incomingQuote), HttpStatus.OK);
     }
 
     @PutMapping(path = "{quoteId}")

@@ -39,22 +39,8 @@ public class PostgresDataAccessService implements QuoteDao, MemberDao, MediaDao 
     }
 
     @Override
-    public int updateMemberById(UUID memberId, Member newMember) {
-        return getMemberById(memberId).map(existingMember -> {
-            if (newMember.getNickname() != null) {
-                existingMember.setNickname(newMember.getNickname());
-            }
-            if (newMember.getPhone() != null) {
-                existingMember.setPhone(newMember.getPhone());
-            }
-            memberRepository.save(existingMember);
-            return 1;
-        }).orElse(0);
-    }
-
-    @Override
-    public Boolean toggleActive(UUID memberId) {
-        return getMemberById(memberId).map(Member::toggleActive).orElse(null);
+    public void updateMember(Member member) {
+        memberRepository.save(member);
     }
 
     // Quote methods

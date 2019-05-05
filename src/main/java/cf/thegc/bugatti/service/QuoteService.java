@@ -36,9 +36,12 @@ public class QuoteService {
      * @return The quote that was successfully inserted, which includes the quote identifier
      */
     public Quote addQuote(Quote incomingQuote) {
-        Optional <Member> author = memberService.getMemberById(incomingQuote.getMember().getMemberId());
+        UUID memberId = incomingQuote.getMember().getMemberId();
+        Member author = memberService.getMemberById(memberId);
+
+
         Quote newQuote = quoteDao.addQuote(incomingQuote);
-        newQuote.setMember(author.get()); // Member service handles non-present member
+        newQuote.setMember(author);
         return newQuote;
     }
 
@@ -50,11 +53,11 @@ public class QuoteService {
         return quoteDao.getQuoteById(quoteId);
     }
 
-    public int updateQuoteTextById(UUID quoteId, Quote newQuote) {
-        return quoteDao.updateQuoteTextById(quoteId, newQuote);
+    public void updateQuoteTextById(UUID quoteId, Quote newQuote) {
+        quoteDao.updateQuoteTextById(quoteId, newQuote);
     }
 
-    public int deleteQuoteById(UUID quoteId) {
-        return quoteDao.deleteQuoteById(quoteId);
+    public void deleteQuoteById(UUID quoteId) {
+        quoteDao.deleteQuoteById(quoteId);
     }
 }

@@ -13,8 +13,5 @@ public interface MemberDao {
 
     Optional<Member> getMemberById(UUID memberId);
 
-    int updateMemberById(UUID memberId, Member member);
-
-    Boolean toggleActive(UUID memberId);
-
+    void updateMember(Member member);
 }

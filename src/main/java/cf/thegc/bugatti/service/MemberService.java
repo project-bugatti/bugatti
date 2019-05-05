@@ -11,12 +11,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
 public class MemberService {
-
-    public static final String ERROR_NO_MEMBER_EXISTS = "No member exists";
 
     private final MemberDao memberDao;
 
@@ -29,19 +28,24 @@ public class MemberService {
         return memberDao.getMembers(pageable);
     }
 
-    public Optional<Member> getMemberById(UUID memberId) {
+    public Member getMemberById(UUID memberId) {
         Optional<Member> member = memberDao.getMemberById(memberId);
-        if (!member.isPresent()) {
-            throw new MemberNotFoundException(memberId);
-        }
-        return member;
+        member.orElseThrow(() -> new MemberNotFoundException(memberId));
+        return member.get();
     }
 
-    public int updateMemberById(UUID memberId, Member member) {
-        return memberDao.updateMemberById(memberId, member);
-    }
+    public void updateMember(UUID memberId, Member updatedMember) {
+        Member existingMember = getMemberById(memberId);
 
-    public Boolean toggleActive(UUID memberId) {
-        return memberDao.toggleActive(memberId);
+        // Check (and update) nickname
+        if (updatedMember.getNickname() != null) existingMember.setNickname(updatedMember.getNickname());
+
+        // Check (and update) phone
+        if (updatedMember.getPhone() != null) existingMember.setPhone(updatedMember.getPhone());
+
+        // Check (and update) active status
+        if (updatedMember.getActive() != null) existingMember.setActive(updatedMember.getActive());
+
+        memberDao.updateMember(existingMember);
     }
 }
