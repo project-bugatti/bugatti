@@ -2,7 +2,7 @@ package cf.thegc.bugatti.service;
 
 import cf.thegc.bugatti.dao.LimitedMember;
 import cf.thegc.bugatti.dao.MemberDao;
-import cf.thegc.bugatti.exception.MemberNotFoundException;
+import cf.thegc.bugatti.exception.ResourceNotFoundException;
 import cf.thegc.bugatti.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -30,7 +29,7 @@ public class MemberService {
 
     public Member getMemberById(UUID memberId) {
         Optional<Member> member = memberDao.getMemberById(memberId);
-        member.orElseThrow(() -> new MemberNotFoundException(memberId));
+        member.orElseThrow(() -> new ResourceNotFoundException(memberId, "Member"));
         return member.get();
     }
 

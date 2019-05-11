@@ -10,7 +10,19 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "media")
-public class Media extends AuditModel{
+public class Media extends AuditModel {
+
+    enum FileType {
+        JPG,
+        JPEG,
+        PNG,
+        GIF;
+
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
+    }
 
     @Id
     @Column(name = "media_id")
@@ -39,9 +51,9 @@ public class Media extends AuditModel{
     @JsonProperty(value = "file_type")
     private String fileType;
 
-    @Column(name = "is_visible")
-    @JsonProperty(value = "is_visible")
-    private Boolean isVisible = true;
+    @Column(name = "visible")
+    @JsonProperty(value = "visible")
+    private Boolean visible = true;
 
     public UUID getMediaId() {
         return mediaId;
@@ -84,10 +96,10 @@ public class Media extends AuditModel{
     }
 
     public Boolean getVisible() {
-        return isVisible;
+        return visible;
     }
 
     public void setVisible(Boolean visible) {
-        isVisible = visible;
+        this.visible = visible;
     }
 }

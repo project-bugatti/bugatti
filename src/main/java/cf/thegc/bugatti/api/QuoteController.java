@@ -26,18 +26,17 @@ public class QuoteController {
     }
 
     @GetMapping
-    public List getQuotes(@PageableDefault(size = QUOTES_PAGE_SIZE) Pageable pageable) {
-        Page page = quoteService.getQuotes(pageable);
-        return page.getContent();
+    public ResponseEntity getQuotes(@PageableDefault(size = QUOTES_PAGE_SIZE) Pageable pageable) {
+        return new ResponseEntity<>(quoteService.getQuotes(pageable), HttpStatus.OK);
     }
 
     @GetMapping(path = "{quoteId}")
     public Quote getQuoteById(@PathVariable("quoteId") UUID quoteId) {
-        return quoteService.getQuoteById(quoteId).orElse(null);
+        return quoteService.getQuoteById(quoteId);
     }
 
     @PostMapping
-    private ResponseEntity<Quote> addQuote(@RequestBody Quote incomingQuote) {
+    private ResponseEntity addQuote(@RequestBody Quote incomingQuote) {
         return new ResponseEntity<>(quoteService.addQuote(incomingQuote), HttpStatus.OK);
     }
 

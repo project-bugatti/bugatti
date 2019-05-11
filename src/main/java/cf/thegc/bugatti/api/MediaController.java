@@ -8,7 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/media")
@@ -24,7 +26,7 @@ public class MediaController {
     }
 
     @GetMapping
-    public List<Media> getMedia(@PageableDefault(size = MEDIA_PAGE_SIZE)Pageable pageable) {
+    public List getMedia(@PageableDefault(size = MEDIA_PAGE_SIZE)Pageable pageable) {
         Page page = mediaService.getMedia(pageable);
         return page.getContent();
     }
@@ -35,7 +37,7 @@ public class MediaController {
     }
 
     @PostMapping
-    public Media addMedia(@RequestBody Media media) {
+    public Map addMedia(@RequestBody Media media) {
         return mediaService.addMedia(media);
     }
 
