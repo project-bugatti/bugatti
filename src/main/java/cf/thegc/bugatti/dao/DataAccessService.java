@@ -3,7 +3,6 @@ package cf.thegc.bugatti.dao;
 import cf.thegc.bugatti.model.Media;
 import cf.thegc.bugatti.model.Member;
 import cf.thegc.bugatti.model.Quote;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -37,9 +36,15 @@ public class DataAccessService implements QuoteDao, MemberDao, MediaDao {
 
     // Member methods
 
+
     @Override
-    public Page<LimitedMember> getMembers(Pageable pageable) {
-        return memberRepository.getAllBy(pageable);
+    public Member addMember(Member member) {
+        return memberRepository.save(member);
+    }
+
+    @Override
+    public List<LimitedMember> getMembers(Pageable pageable) {
+        return memberRepository.getAllBy(pageable).getContent();
     }
 
     @Override
@@ -88,8 +93,8 @@ public class DataAccessService implements QuoteDao, MemberDao, MediaDao {
     // Media methods
 
     @Override
-    public Page<Media> getMedia(Pageable pageable) {
-        return mediaRepository.getAllBy(pageable);
+    public List<Media> getMedia(Pageable pageable) {
+        return mediaRepository.getAllBy(pageable).getContent();
     }
 
     @Override

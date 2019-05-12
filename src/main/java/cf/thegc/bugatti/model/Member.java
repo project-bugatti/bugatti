@@ -122,7 +122,7 @@ public class Member extends AuditModel {
         StringBuilder memberBuilder = new StringBuilder();
         memberBuilder
                 .append(firstname).append(" ").append(lastname);
-        if(nickname != null) {
+        if (nickname != null) {
             memberBuilder.append(" (\"").append(nickname).append("\")");
         }
         memberBuilder

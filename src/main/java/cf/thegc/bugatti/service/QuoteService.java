@@ -40,7 +40,6 @@ public class QuoteService {
         UUID memberId = incomingQuote.getMember().getMemberId();
         Member author = memberService.getMemberById(memberId);
 
-
         Quote newQuote = quoteDao.addQuote(incomingQuote);
         newQuote.setMember(author);
         return newQuote;

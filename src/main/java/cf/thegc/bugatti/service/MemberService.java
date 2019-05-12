@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,7 +24,11 @@ public class MemberService {
         this.memberDao = memberDao;
     }
 
-    public Page<LimitedMember> getMembers(Pageable pageable) {
+    public Member addMember(Member member) {
+        return memberDao.addMember(member);
+    }
+
+    public List<LimitedMember> getMembers(Pageable pageable) {
         return memberDao.getMembers(pageable);
     }
 

@@ -27,8 +27,7 @@ public class MediaController {
 
     @GetMapping
     public List getMedia(@PageableDefault(size = MEDIA_PAGE_SIZE)Pageable pageable) {
-        Page page = mediaService.getMedia(pageable);
-        return page.getContent();
+        return mediaService.getMedia(pageable);
     }
 
     @GetMapping(path = "{mediaId}")

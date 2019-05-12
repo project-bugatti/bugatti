@@ -28,8 +28,7 @@ public class MemberController {
 
     @GetMapping
     public List getMembers(@PageableDefault(size = MEMBERS_PAGE_SIZE ) Pageable pageable) {
-        Page page = memberService.getMembers(pageable);
-        return page.getContent();
+        return memberService.getMembers(pageable);
     }
 
     @GetMapping(path = "{memberId}")

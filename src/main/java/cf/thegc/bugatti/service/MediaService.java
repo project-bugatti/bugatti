@@ -15,7 +15,6 @@ import java.util.*;
 public class MediaService {
 
     private final MediaDao mediaDao;
-
     private final static Set<String> ALLOWED_FILE_TYPES = new HashSet<>(Arrays.asList("jpg", "jpeg", "png", "gif"));
 
     @Autowired
@@ -23,7 +22,7 @@ public class MediaService {
         this.mediaDao = mediaDao;
     }
 
-    public Page<Media> getMedia(Pageable pageable) {
+    public List<Media> getMedia(Pageable pageable) {
         return mediaDao.getMedia(pageable);
     }
 
