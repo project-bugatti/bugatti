@@ -1,13 +1,11 @@
 package cf.thegc.bugatti.service;
 
-import cf.thegc.bugatti.dao.MemberDao;
 import cf.thegc.bugatti.dao.QuoteDao;
 import cf.thegc.bugatti.exception.ResourceNotFoundException;
 import cf.thegc.bugatti.model.Member;
 import cf.thegc.bugatti.model.Quote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -45,8 +43,8 @@ public class QuoteService {
         return newQuote;
     }
 
-    public List<Quote> getQuotes(Pageable pageable) {
-        return quoteDao.getQuotes(pageable);
+    public List<Quote> getAllQuotes(Pageable pageable) {
+        return quoteDao.getAllQuotes(pageable);
     }
 
     public Quote getQuoteById(UUID quoteId) {

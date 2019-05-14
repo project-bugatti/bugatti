@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface QuoteDao {
     Quote addQuote(Quote quote);
 
-    List<Quote> getQuotes(Pageable pageable);
+    List<Quote> getAllQuotes(Pageable pageable);
 
     Optional<Quote> getQuoteById(UUID quoteId);
 

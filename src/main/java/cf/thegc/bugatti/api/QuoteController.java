@@ -3,14 +3,12 @@ package cf.thegc.bugatti.api;
 import cf.thegc.bugatti.model.Quote;
 import cf.thegc.bugatti.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/quotes")
@@ -27,7 +25,7 @@ public class QuoteController {
 
     @GetMapping
     public ResponseEntity getQuotes(@PageableDefault(size = QUOTES_PAGE_SIZE) Pageable pageable) {
-        return new ResponseEntity<>(quoteService.getQuotes(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(quoteService.getAllQuotes(pageable), HttpStatus.OK);
     }
 
     @GetMapping(path = "{quoteId}")

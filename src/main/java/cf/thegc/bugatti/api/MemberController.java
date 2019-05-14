@@ -38,6 +38,6 @@ public class MemberController {
 
     @PutMapping(path = "{memberId}")
     public void updateMemberById(@PathVariable("memberId") UUID memberId, @RequestBody Member member) {
-        memberService.updateMember(memberId, member);
+        memberService.updateMemberById(memberId, member);
     }
 }

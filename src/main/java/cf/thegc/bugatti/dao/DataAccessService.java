@@ -53,14 +53,19 @@ public class DataAccessService implements QuoteDao, MemberDao, MediaDao {
     }
 
     @Override
-    public void updateMember(Member member) {
+    public void updateMemberById(Member member) {
         memberRepository.save(member);
+    }
+
+    @Override
+    public void deleteMemberById(UUID memberId) {
+        memberRepository.deleteById(memberId);
     }
 
     // Quote methods
 
     @Override
-    public List<Quote> getQuotes(Pageable pageable) {
+    public List<Quote> getAllQuotes(Pageable pageable) {
         return quoteRepository.getAllBy(pageable).getContent();
     }
 

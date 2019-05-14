@@ -15,5 +15,7 @@ public interface MemberDao {
 
     Optional<Member> getMemberById(UUID memberId);
 
-    void updateMember(Member member);
+    void updateMemberById(Member member);
+
+    void deleteMemberById(UUID memberId);
 }

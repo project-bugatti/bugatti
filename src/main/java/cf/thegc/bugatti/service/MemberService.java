@@ -38,7 +38,7 @@ public class MemberService {
         return member.get();
     }
 
-    public void updateMember(UUID memberId, Member updatedMember) {
+    public void updateMemberById(UUID memberId, Member updatedMember) {
         Member existingMember = getMemberById(memberId);
 
         // Check (and update) nickname
@@ -50,6 +50,11 @@ public class MemberService {
         // Check (and update) active status
         if (updatedMember.getActive() != null) existingMember.setActive(updatedMember.getActive());
 
-        memberDao.updateMember(existingMember);
+        memberDao.updateMemberById(existingMember);
+    }
+
+    public void deleteMemberById(UUID memberId) {
+        Member existingMember = getMemberById(memberId);
+        memberDao.deleteMemberById(memberId);
     }
 }
