@@ -6,7 +6,6 @@ import cf.thegc.bugatti.exception.ResourceNotFoundException;
 import cf.thegc.bugatti.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +37,8 @@ public class MemberService {
         return member.get();
     }
 
-    public void updateMemberById(UUID memberId, Member updatedMember) {
-        Member existingMember = getMemberById(memberId);
+    public void updateMember(Member updatedMember) {
+        Member existingMember = getMemberById(updatedMember.getMemberId());
 
         // Check (and update) nickname
         if (updatedMember.getNickname() != null) existingMember.setNickname(updatedMember.getNickname());
@@ -50,7 +49,7 @@ public class MemberService {
         // Check (and update) active status
         if (updatedMember.getActive() != null) existingMember.setActive(updatedMember.getActive());
 
-        memberDao.updateMemberById(existingMember);
+        memberDao.updateMember(existingMember);
     }
 
     public void deleteMemberById(UUID memberId) {

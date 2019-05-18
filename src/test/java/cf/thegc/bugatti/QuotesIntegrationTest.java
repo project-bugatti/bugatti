@@ -1,5 +1,6 @@
 package cf.thegc.bugatti;
 
+import cf.thegc.bugatti.exception.ResourceNotFoundException;
 import cf.thegc.bugatti.model.Member;
 import cf.thegc.bugatti.model.Quote;
 import cf.thegc.bugatti.service.MemberService;
@@ -30,37 +31,40 @@ public class QuotesIntegrationTest {
     @Test
     public void givenQuoteService_doCRUD_thenOK() {
         // Get all quotes
-        List<Quote> quotes = quoteService.getAllQuotes(null);
-        assert quotes.size() == 0;
+        List<Quote> allQuotes = quoteService.getAllQuotes(null);
+        assert allQuotes.size() == 0;
 
         // Add quote (add member first)
-        Member member = new Member();
-        member.setFirstname("Stonewall");
-        member.setLastname("Jackson");
+        Member member = new Member()
+                .setFirstname("Stonewall")
+                .setLastname("Jackson");
         memberService.addMember(member);
 
-        Quote quote = new Quote();
-        quote.setQuoteText("Hello, world!");
-        quote.setMember(member);
+        Quote quote = new Quote()
+                .setQuoteText("Hello, world!")
+                .setMember(member)
+                .setVisible(true);
         quoteService.addQuote(quote);
 
         // Get all quotes
-        quotes = quoteService.getAllQuotes(null);
-        assert quotes.size() == 1;
+        allQuotes = quoteService.getAllQuotes(null);
+        assert allQuotes.size() == 1;
 
-        // Get quote
-        Quote foundQuote = quoteService.getQuoteById(quotes.get(0).getQuoteId());
+        // Get a single quote
+        Quote foundQuote = quoteService.getQuoteById(allQuotes.get(0).getQuoteId());
         assertNotNull(foundQuote);
-        assertEquals(quotes.get(0).getQuoteText(), foundQuote.getQuoteText());
+        assertEquals(allQuotes.get(0).getQuoteText(), foundQuote.getQuoteText());
 
         // Update quote
         assertTrue(foundQuote.getVisible());
         assertNull(foundQuote.getQuoteDate());
-        foundQuote.setVisible(false);
-        foundQuote.setQuoteDate(new Date().getTime());
-        quoteService.updateQuoteTextById(foundQuote.getQuoteId(), foundQuote);
+        foundQuote
+                .setVisible(false)
+                .setQuoteDate(new Date().getTime());
+        quoteService.updateQuoteById(foundQuote);
 
         foundQuote = quoteService.getQuoteById(foundQuote.getQuoteId());
+
         assertFalse(foundQuote.getVisible());
         assertNotNull(foundQuote.getQuoteDate());
 
@@ -69,7 +73,7 @@ public class QuotesIntegrationTest {
         assert quoteService.getAllQuotes(null).size() == 0;
     }
 
-    @Test(expected = ResourceAccessException.class)
+    @Test(expected = ResourceNotFoundException.class)
     public void givenQuoteService_doLookupOnNonExistingQuote() {
         assert quoteService.getAllQuotes(null).size() == 0;
         UUID randomUUID = UUID.randomUUID();

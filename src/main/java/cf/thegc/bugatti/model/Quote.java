@@ -43,55 +43,65 @@ public class Quote extends AuditModel {
         return quoteId;
     }
 
-    public void setQuoteId(UUID quoteId) {
+    public Quote setQuoteId(UUID quoteId) {
         this.quoteId = quoteId;
+        return this;
     }
 
     public String getQuoteText() {
         return quoteText;
     }
 
-    public void setQuoteText(String quoteText) {
+    public Quote setQuoteText(String quoteText) {
         this.quoteText = quoteText;
+        return this;
     }
 
     public Boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(Boolean visible) {
+    public Quote setVisible(Boolean visible) {
         this.visible = visible;
+        return this;
     }
 
     public Long getQuoteDate() {
         return quoteDate;
     }
 
-    public void setQuoteDate(Long quoteDate) {
+    public Quote setQuoteDate(Long quoteDate) {
         this.quoteDate = quoteDate;
+        return this;
     }
 
     public Member getMember() {
         return member;
     }
 
-    public void setMember(Member member) {
+    public Quote setMember(Member member) {
         this.member = member;
+        return this;
     }
 
     @Override
     public String toString() {
 
         /*
-        Quote: "Ask not what your country can do for you — ask what you can do for your country
-            - John Kennedy (Qoute ID: c25ae6d7-43a9-4f7e-ba35-91c611aee4ad)
+        "Ask not what your country can do for you — ask what you can do for your country"
+            Author: John Kennedy
+            Quote ID: c25ae6d7-43a9-4f7e-ba35-91c611aee4ad
+            Date: null
+            Visible: true
          */
 
         StringBuilder quoteBuilder = new StringBuilder();
         quoteBuilder
-                .append("Quote: ").append(quoteText).append("\n\t")
-                .append("- ").append(member.getFirstname()).append(" ").append(member.getLastname())
-                .append(" (Quote ID: ").append(quoteId).append(")");
+                .append("\"").append(quoteText).append("\"").append("\n\t")
+                .append("Author: ").append(member.getFirstname()).append(" ").append(member.getLastname()).append("\n\t")
+                .append("Quote ID: ").append(quoteId).append("\n\t")
+                .append("Date: ").append(quoteDate).append("\n\t")
+                .append("Visible: ").append(visible);
         return quoteBuilder.toString();
     }
 }

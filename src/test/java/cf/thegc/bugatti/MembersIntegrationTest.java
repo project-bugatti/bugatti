@@ -48,7 +48,7 @@ public class MembersIntegrationTest {
         assertNull(foundMember.getNickname());
         foundMember.setNickname("The Father of His Country");
         foundMember.setActive(false);
-        memberService.updateMemberById(foundMember.getMemberId(), foundMember);
+        memberService.updateMember(foundMember);
 
         foundMember = memberService.getMemberById(foundMember.getMemberId());
         assertNotNull(foundMember.getNickname());

@@ -1,12 +1,8 @@
 package cf.thegc.bugatti.api;
 
-import cf.thegc.bugatti.dao.LimitedMember;
 import cf.thegc.bugatti.model.Member;
 import cf.thegc.bugatti.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +34,7 @@ public class MemberController {
 
     @PutMapping(path = "{memberId}")
     public void updateMemberById(@PathVariable("memberId") UUID memberId, @RequestBody Member member) {
-        memberService.updateMemberById(memberId, member);
+        member.setMemberId(memberId);
+        memberService.updateMember(member);
     }
 }

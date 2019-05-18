@@ -53,7 +53,7 @@ public class DataAccessService implements QuoteDao, MemberDao, MediaDao {
     }
 
     @Override
-    public void updateMemberById(Member member) {
+    public void updateMember(Member member) {
         memberRepository.save(member);
     }
 
@@ -80,13 +80,9 @@ public class DataAccessService implements QuoteDao, MemberDao, MediaDao {
     }
 
     @Override
-    public int updateQuoteTextById(UUID quoteId, Quote newQuote) {
-        return getQuoteById(quoteId)
-                .map(existingQuote -> {
-                    existingQuote.setQuoteText(newQuote.getQuoteText());
-                    quoteRepository.save(existingQuote);
-                    return 1;
-                }).orElse(0);
+    public int updateQuote(Quote newQuote) {
+        quoteRepository.save(newQuote);
+        return 1;
     }
 
     @Override
@@ -155,7 +151,7 @@ public class DataAccessService implements QuoteDao, MemberDao, MediaDao {
     }
 
     @Override
-    public void updateMediaById(UUID mediaId, Media newMedia) {
-        mediaRepository.save(newMedia);
+    public void updateMedia(Media updatedMedia) {
+        mediaRepository.save(updatedMedia);
     }
 }

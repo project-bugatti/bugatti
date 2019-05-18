@@ -40,7 +40,8 @@ public class QuoteController {
 
     @PutMapping(path = "{quoteId}")
     public void updateQuoteById(@PathVariable("quoteId") UUID quoteId, @RequestBody Quote quoteToUpdate) {
-        quoteService.updateQuoteTextById(quoteId, quoteToUpdate);
+        quoteToUpdate.setQuoteId(quoteId);
+        quoteService.updateQuoteById(quoteToUpdate);
     }
 
     @DeleteMapping(path = "{quoteId}")

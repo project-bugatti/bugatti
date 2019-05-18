@@ -60,48 +60,54 @@ public class Member extends AuditModel {
         return firstname;
     }
 
-    public void setFirstname(String firstname) {
+    public Member setFirstname(String firstname) {
         this.firstname = firstname;
+        return this;
     }
 
     public String getLastname() {
         return lastname;
     }
 
-    public void setLastname(String lastname) {
+    public Member setLastname(String lastname) {
         this.lastname = lastname;
+        return this;
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
+    public Member setNickname(String nickname) {
         this.nickname = nickname;
+        return this;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public Member setPhone(String phone) {
         this.phone = phone;
+        return this;
     }
 
     public Boolean getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public Member setActive(Boolean active) {
         this.active = active;
+        return this;
     }
 
     public List<Quote> getQuotes() {
         return quotes;
     }
 
-    public void setQuotes(List<Quote> quotes) {
+    public Member setQuotes(List<Quote> quotes) {
         this.quotes = quotes;
+        return this;
     }
 
     public Boolean toggleActive() {
@@ -113,7 +119,7 @@ public class Member extends AuditModel {
     public String toString() {
 
         /*
-        George Washington ("Georgie")
+        George Washington ("The Father of His Country")
             Phone: 9127894512
             Status: active
             ID: b74f56ff-b560-4a25-b48a-daf7f1b6ff51

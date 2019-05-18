@@ -21,5 +21,5 @@ public interface MediaDao {
 
     void deleteMediaById(UUID mediaId);
 
-    void updateMediaById(UUID mediaId, Media newMedia);
+    void updateMedia(Media updatedMedia);
 }

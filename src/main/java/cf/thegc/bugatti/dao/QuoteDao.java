@@ -17,6 +17,6 @@ public interface QuoteDao {
 
     int deleteQuoteById(UUID quoteId);
 
-    int updateQuoteTextById(UUID quoteId, Quote newQuote);
+    int updateQuote(Quote newQuote);
 
 }

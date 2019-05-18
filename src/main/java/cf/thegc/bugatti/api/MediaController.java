@@ -3,12 +3,10 @@ package cf.thegc.bugatti.api;
 import cf.thegc.bugatti.model.Media;
 import cf.thegc.bugatti.service.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -32,7 +30,7 @@ public class MediaController {
 
     @GetMapping(path = "{mediaId}")
     public Media getMediabyId(@PathVariable("mediaId") UUID mediaId) {
-        return mediaService.getMediaById(mediaId).orElse(null);
+        return mediaService.getMediaById(mediaId);
     }
 
     @PostMapping
@@ -42,7 +40,8 @@ public class MediaController {
 
     @PutMapping(path = "{mediaId}")
     public void updateMediaById(@PathVariable("mediaId") UUID mediaId, @RequestBody Media media) {
-        mediaService.updateMediaById(mediaId, media);
+        media.setMediaId(mediaId);
+        mediaService.updateMedia(media);
     }
 
     @DeleteMapping(path = "{mediaId}")

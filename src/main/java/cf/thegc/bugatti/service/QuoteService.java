@@ -53,8 +53,22 @@ public class QuoteService {
         return quote.get();
     }
 
-    public void updateQuoteTextById(UUID quoteId, Quote newQuote) {
-        quoteDao.updateQuoteTextById(quoteId, newQuote);
+    public void updateQuoteById(Quote updatedQuote) {
+        Quote existingQuote = getQuoteById(updatedQuote.getQuoteId());
+
+        // Check (and update) quote text
+        if (updatedQuote.getQuoteText() != null) existingQuote.setQuoteText(updatedQuote.getQuoteText());
+
+        // Check (and update) quote visibility
+        if (updatedQuote.getVisible() != null) existingQuote.setVisible(updatedQuote.getVisible());
+
+        // Check (and update) date
+        if (updatedQuote.getQuoteDate() != null) existingQuote.setQuoteDate(updatedQuote.getQuoteDate());
+
+        // Check (and update) member
+        if (updatedQuote.getMember() != null) existingQuote.setMember(updatedQuote.getMember());
+
+        quoteDao.updateQuote(existingQuote);
     }
 
     public void deleteQuoteById(UUID quoteId) {
