@@ -31,6 +31,10 @@ public class MemberService {
         return memberDao.getMembers(pageable);
     }
 
+    public Member getMember(Member member) {
+        return getMemberById(member.getMemberId());
+    }
+
     public Member getMemberById(UUID memberId) {
         Optional<Member> member = memberDao.getMemberById(memberId);
         member.orElseThrow(() -> new ResourceNotFoundException(memberId, "Member"));

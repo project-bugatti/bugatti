@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -21,6 +22,7 @@ public class Quote extends AuditModel {
     )
     private UUID quoteId;
 
+    @NotNull
     @Column(name = "quote_text")
     @JsonProperty("quote_text")
     private String quoteText;
@@ -33,6 +35,7 @@ public class Quote extends AuditModel {
     @JsonProperty("quote_date")
     private Long quoteDate;
 
+    @NotNull
     @JsonProperty("member")
     @ManyToOne()
     @JoinColumn(name = "author_member_id")

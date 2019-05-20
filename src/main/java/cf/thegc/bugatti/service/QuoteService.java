@@ -1,6 +1,7 @@
 package cf.thegc.bugatti.service;
 
 import cf.thegc.bugatti.dao.QuoteDao;
+import cf.thegc.bugatti.exception.InvalidRequestException;
 import cf.thegc.bugatti.exception.ResourceNotFoundException;
 import cf.thegc.bugatti.model.Member;
 import cf.thegc.bugatti.model.Quote;
@@ -29,12 +30,16 @@ public class QuoteService {
     /**
      * The member service gets the author, or throws an error if the member doesn't exist
      * The quote service inserts the quote and returns the quote
-     * The quote sets its author
      *
      * @param incomingQuote The quote to be inserted
      * @return The quote that was successfully inserted, which includes the quote identifier
      */
     public Quote addQuote(Quote incomingQuote) {
+
+        if (incomingQuote.getMember() == null || incomingQuote.getMember().getMemberId() == null) {
+            throw new InvalidRequestException("There isn't a member!");
+        }
+
         UUID memberId = incomingQuote.getMember().getMemberId();
         Member author = memberService.getMemberById(memberId);
 

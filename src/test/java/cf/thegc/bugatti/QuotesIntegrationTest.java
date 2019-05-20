@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.util.Date;
 import java.util.List;
@@ -78,6 +77,14 @@ public class QuotesIntegrationTest {
         assert quoteService.getAllQuotes(null).size() == 0;
         UUID randomUUID = UUID.randomUUID();
         Quote quote = quoteService.getQuoteById(randomUUID);
+    }
+
+    @Test(expected = ResourceNotFoundException.class)
+    public void givenQuoteServiceAndMemberService_addQuoteWithNullMember() {
+        Quote quote = new Quote()
+                .setQuoteText("Hello, world!")
+                .setMember(null);
+        quoteService.addQuote(quote);
     }
 
 }
