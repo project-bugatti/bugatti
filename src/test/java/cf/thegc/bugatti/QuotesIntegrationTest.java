@@ -79,7 +79,7 @@ public class QuotesIntegrationTest {
         Quote quote = quoteService.getQuoteById(randomUUID);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test()
     public void givenQuoteServiceAndMemberService_addQuoteWithNullMember() {
         Quote quote = new Quote()
                 .setQuoteText("Hello, world!")

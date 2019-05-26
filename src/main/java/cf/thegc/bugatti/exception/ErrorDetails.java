@@ -1,5 +1,7 @@
 package cf.thegc.bugatti.exception;
 
+import org.springframework.http.HttpStatus;
+
 import java.util.Date;
 
 public class ErrorDetails {
