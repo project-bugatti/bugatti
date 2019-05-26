@@ -22,45 +22,59 @@ public class MembersIntegrationTest {
     @Autowired
     private MemberService memberService;
 
+    /**
+     * Steps:
+     * 1) Assert no members exist
+     * 2) Create and add a member
+     * 3) Assert one member exists
+     * 4) Perform member lookup using a member ID
+     * 5) Update a member
+     * 6) Delete a member
+     */
     @Test
-    public void givenMemberService_doCRUD_thenOK() {
-        // Get all members
+    public void main() {
+        // Asserts no members exist
         List<LimitedMember> members = memberService.getMembers(null);
-        assert members.size() == 0;
+        assertEquals(members.size(), 0);
 
-        // Add member
-        Member member0 = new Member();
-        member0.setFirstname("George");
-        member0.setLastname("Washington");
-        memberService.addMember(member0);
+        // Creates and adds a member
+        Member member = new Member()
+                .setFirstname("George")
+                .setLastname("Washington");
+        memberService.addMember(member);
 
-        // Get all members
-        members = memberService.getMembers(null);
-        assert members.size() >= 1;
+        // Asserts one member exists
+        assertEquals(1, memberService.getMembers(null).size());
+        assertNotNull(memberService.getMembers(null).get(0));
 
-        // Get member
-        Member foundMember = memberService.getMemberById(members.get(0).getMemberId());
-        assertNotNull(foundMember);
-        assertEquals(members.get(0).getLastname(), foundMember.getLastname());
+        // Performs a member lookup using a member ID
+        UUID memberId = memberService.getMembers(null).get(0).getMemberId();
+        member = memberService.getMemberById(memberId);
 
-        // Update member
-        assertTrue(foundMember.getActive());
-        assertNull(foundMember.getNickname());
-        foundMember.setNickname("The Father of His Country");
-        foundMember.setActive(false);
-        memberService.updateMember(foundMember);
+        // Update a member
+        assertTrue(member.getActive());
+        assertNull(member.getPhone());
+        assertNull(member.getNickname());
 
-        foundMember = memberService.getMemberById(foundMember.getMemberId());
-        assertNotNull(foundMember.getNickname());
-        assertFalse(foundMember.getActive());
+        member
+                .setActive(false)
+                .setPhone("0123456789")
+                .setNickname("Father of His Country");
+        memberService.updateMember(member);
 
-        // Delete member
-        memberService.deleteMemberById(foundMember.getMemberId());
+        member = memberService.getMemberById(memberId);
+        assertFalse(member.getActive());
+        assertNotNull(member.getPhone());
+        assertNotNull(member.getNickname());
+
+        // Deletes a member
+        memberService.deleteMemberById(memberId);
+        assertEquals(0, memberService.getMembers(null).size());
     }
 
     @Test(expected = ResourceNotFoundException.class)
-    public void givenMemberService_doLookupOnNonExistingMember() {
-        assert memberService.getMembers(null).size() == 0;
+    public void doLookupOnNonExistingMember() {
+        assertEquals(0, memberService.getMembers(null).size());
         UUID randomUUID = UUID.randomUUID();
         Member member = memberService.getMemberById(randomUUID);
     }

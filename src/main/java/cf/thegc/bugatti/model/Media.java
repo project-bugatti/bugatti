@@ -1,11 +1,14 @@
 package cf.thegc.bugatti.model;
 
+import cf.thegc.bugatti.dao.LimitedMember;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -55,6 +58,24 @@ public class Media extends AuditModel {
     @JsonProperty(value = "visible")
     private Boolean visible = true;
 
+    @NotNull
+    @JsonProperty("uploader")
+    @ManyToOne()
+    @JoinColumn(name = "author_member_id")
+    @JsonIgnoreProperties("quotes") // prevents recursion / stack overflow
+    private Member uploader;
+
+    @ManyToMany
+    @JoinTable(
+            name = "members_media",
+            joinColumns = { @JoinColumn(name = "media_id") },
+            inverseJoinColumns = { @JoinColumn(name = "member_id") }
+    )
+    @NotNull
+    @JsonProperty(value = "members")
+    @JsonIgnoreProperties("quotes") // prevents recursion / stack overflow
+    private List<LimitedMember> members;
+
     public UUID getMediaId() {
         return mediaId;
     }
@@ -101,5 +122,21 @@ public class Media extends AuditModel {
 
     public void setVisible(Boolean visible) {
         this.visible = visible;
+    }
+
+    public Member getUploader() {
+        return uploader;
+    }
+
+    public void setUploader(Member uploader) {
+        this.uploader = uploader;
+    }
+
+    public List<LimitedMember> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<LimitedMember> members) {
+        this.members = members;
     }
 }

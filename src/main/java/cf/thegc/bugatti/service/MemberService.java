@@ -35,9 +35,14 @@ public class MemberService {
         return getMemberById(member.getMemberId());
     }
 
+
+    /**
+     * @param memberId UUID of member
+     * @return Member object if lookup returned a member, or throws an exception
+     */
     public Member getMemberById(UUID memberId) {
         Optional<Member> member = memberDao.getMemberById(memberId);
-        member.orElseThrow(() -> new ResourceNotFoundException(memberId, "Member"));
+        member.orElseThrow(() -> new ResourceNotFoundException("Member", memberId));
         return member.get();
     }
 

@@ -11,11 +11,11 @@ public class ResourceNotFoundException extends RuntimeException {
     private String message;
 
     public ResourceNotFoundException(UUID culprit) {
-        this(culprit, "Resource");
+        this("Resource", culprit);
     }
 
-    public ResourceNotFoundException(UUID culprit, String resource) {
-        this.message = resource + " with ID '" + culprit + "' does not exist";
+    public ResourceNotFoundException(String resource, UUID culprit) {
+        this.message = culprit + " with ID '" + resource + "' does not exist";
 
         /*
         Resource with ID 'a059061a-6dce-11e9-a923-1681be663d3e' does not exist

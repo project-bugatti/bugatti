@@ -1,6 +1,5 @@
 package cf.thegc.bugatti.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
@@ -36,11 +35,11 @@ public class Quote extends AuditModel {
     private Long quoteDate;
 
     @NotNull
-    @JsonProperty("member")
+    @JsonProperty("author")
     @ManyToOne()
     @JoinColumn(name = "author_member_id")
     @JsonIgnoreProperties("quotes") // prevent recursion / stack overflow
-    private Member member;
+    private Member author;
 
     public UUID getQuoteId() {
         return quoteId;
@@ -78,12 +77,12 @@ public class Quote extends AuditModel {
         return this;
     }
 
-    public Member getMember() {
-        return member;
+    public Member getAuthor() {
+        return author;
     }
 
-    public Quote setMember(Member member) {
-        this.member = member;
+    public Quote setAuthor(Member author) {
+        this.author = author;
         return this;
     }
 
@@ -101,7 +100,7 @@ public class Quote extends AuditModel {
         StringBuilder quoteBuilder = new StringBuilder();
         quoteBuilder
                 .append("\"").append(quoteText).append("\"").append("\n\t")
-                .append("Author: ").append(member.getFirstname()).append(" ").append(member.getLastname()).append("\n\t")
+                .append("Author: ").append(author.getFirstname()).append(" ").append(author.getLastname()).append("\n\t")
                 .append("Quote ID: ").append(quoteId).append("\n\t")
                 .append("Date: ").append(quoteDate).append("\n\t")
                 .append("Visible: ").append(visible);

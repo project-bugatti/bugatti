@@ -36,14 +36,21 @@ public class QuoteService {
      */
     public Quote addQuote(Quote incomingQuote) {
         // Check for a null member
-        if (incomingQuote.getMember() == null || incomingQuote.getMember().getMemberId() == null) {
-            throw new BodyParamsException(BodyParamsException.INVALID_MEMBER_OBJECT);
+        if (incomingQuote.getAuthor() == null) {
+            throw new BodyParamsException(BodyParamsException.MEMBER_OBJECT_MISSING);
         }
-        UUID memberId = incomingQuote.getMember().getMemberId();
+
+        // Check for a null member ID
+        if (incomingQuote.getAuthor().getMemberId() == null) {
+            throw new BodyParamsException(BodyParamsException.MISSING_MEMBER_ID);
+        }
+
+        // Looks up the author (of type Member) to ensure its existence
+        UUID memberId = incomingQuote.getAuthor().getMemberId();
         Member author = memberService.getMemberById(memberId);
 
         Quote newQuote = quoteDao.addQuote(incomingQuote);
-        newQuote.setMember(author);
+        newQuote.setAuthor(author);
         return newQuote;
     }
 
@@ -53,11 +60,11 @@ public class QuoteService {
 
     public Quote getQuoteById(UUID quoteId) {
         Optional<Quote> quote = quoteDao.getQuoteById(quoteId);
-        quote.orElseThrow(() -> new ResourceNotFoundException(quoteId, "Quote"));
+        quote.orElseThrow(() -> new ResourceNotFoundException("Quote", quoteId));
         return quote.get();
     }
 
-    public void updateQuoteById(Quote updatedQuote) {
+    public void updateQuote(Quote updatedQuote) {
         Quote existingQuote = getQuoteById(updatedQuote.getQuoteId());
 
         // Check (and update) quote text
@@ -70,7 +77,7 @@ public class QuoteService {
         if (updatedQuote.getQuoteDate() != null) existingQuote.setQuoteDate(updatedQuote.getQuoteDate());
 
         // Check (and update) member
-        if (updatedQuote.getMember() != null) existingQuote.setMember(updatedQuote.getMember());
+        if (updatedQuote.getAuthor() != null) existingQuote.setAuthor(updatedQuote.getAuthor());
 
         quoteDao.updateQuote(existingQuote);
     }

@@ -15,8 +15,6 @@ public interface MediaDao {
 
     Media addMedia(Media media);
 
-    String getPresignedUrl(Media media);
-
     Optional<Media> getMediaById(UUID mediaId);
 
     void deleteMediaById(UUID mediaId);

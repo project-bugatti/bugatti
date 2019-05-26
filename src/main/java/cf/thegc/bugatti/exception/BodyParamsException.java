@@ -8,7 +8,11 @@ public class BodyParamsException extends RuntimeException {
 
     public final static String MISSING_PARAMS = "Missing required body parameter(s)";
     public final static String INVALID_FILETYPE = "Invalid file type";
-    public final static String INVALID_MEMBER_OBJECT = "Invalid member object";
+
+    public final static String MEMBER_OBJECT_MISSING = "Member object missing";
+    public final static String MEDIA_OBJECT_MISSING = "Media object missing";
+    public final static String QUOTE_OBJECT_MISSING = "Quote object missing";
+    public final static String MISSING_MEMBER_ID = "Missing Member ID";
 
     public BodyParamsException(String message) {
         super(message);

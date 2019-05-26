@@ -41,7 +41,7 @@ public class QuoteController {
     @PutMapping(path = "{quoteId}")
     public void updateQuoteById(@PathVariable("quoteId") UUID quoteId, @RequestBody Quote quoteToUpdate) {
         quoteToUpdate.setQuoteId(quoteId);
-        quoteService.updateQuoteById(quoteToUpdate);
+        quoteService.updateQuote(quoteToUpdate);
     }
 
     @DeleteMapping(path = "{quoteId}")

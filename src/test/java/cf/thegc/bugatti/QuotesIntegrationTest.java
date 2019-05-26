@@ -1,5 +1,7 @@
 package cf.thegc.bugatti;
 
+import cf.thegc.bugatti.dao.LimitedMember;
+import cf.thegc.bugatti.exception.BodyParamsException;
 import cf.thegc.bugatti.exception.ResourceNotFoundException;
 import cf.thegc.bugatti.model.Member;
 import cf.thegc.bugatti.model.Quote;
@@ -27,63 +29,85 @@ public class QuotesIntegrationTest {
     @Autowired
     private MemberService memberService;
 
+    /**
+     * Steps:
+     * 1) Assert no members exist
+     * 2) Assert no quotes exist
+     * 3) Create and add a member
+     * 4) Assert one member exists
+     * 5) Create and add a quote, set the quote's author to the member
+     */
     @Test
-    public void givenQuoteService_doCRUD_thenOK() {
-        // Get all quotes
-        List<Quote> allQuotes = quoteService.getAllQuotes(null);
-        assert allQuotes.size() == 0;
+    public void main() {
 
-        // Add quote (add member first)
+        // Asserts no members exist
+        assertEquals(0, memberService.getMembers(null).size());
+
+        // Asserts no quotes exist
+        assertEquals(0, quoteService.getAllQuotes(null).size());
+
+        // Creates and adds a member
         Member member = new Member()
                 .setFirstname("Stonewall")
                 .setLastname("Jackson");
         memberService.addMember(member);
 
+        // Asserts one member exists
+        List<LimitedMember> members = memberService.getMembers(null);
+        assertNotNull(memberService.getMembers(null).get(0));
+
+        // Creates and adds a quote with an author
+        UUID memberId = memberService.getMembers(null).get(0).getMemberId();
+        member = memberService.getMemberById(memberId);
         Quote quote = new Quote()
                 .setQuoteText("Hello, world!")
-                .setMember(member)
-                .setVisible(true);
+                .setAuthor(member);
+
         quoteService.addQuote(quote);
 
-        // Get all quotes
-        allQuotes = quoteService.getAllQuotes(null);
-        assert allQuotes.size() == 1;
+        // Asserts one quote exists
+        assertEquals(1, quoteService.getAllQuotes(null).size());
+        assertNotNull(quoteService.getAllQuotes(null).get(0));
 
-        // Get a single quote
-        Quote foundQuote = quoteService.getQuoteById(allQuotes.get(0).getQuoteId());
-        assertNotNull(foundQuote);
-        assertEquals(allQuotes.get(0).getQuoteText(), foundQuote.getQuoteText());
+        // Updates a quote
+        quote = quoteService.getAllQuotes(null).get(0);
+        assertTrue(quote.getVisible());
+        assertNull(quote.getQuoteDate());
 
-        // Update quote
-        assertTrue(foundQuote.getVisible());
-        assertNull(foundQuote.getQuoteDate());
-        foundQuote
-                .setVisible(false)
-                .setQuoteDate(new Date().getTime());
-        quoteService.updateQuoteById(foundQuote);
+        quote.setVisible(false).setQuoteDate(new Date().getTime());
+        quoteService.updateQuote(quote);
 
-        foundQuote = quoteService.getQuoteById(foundQuote.getQuoteId());
+        Quote sameQuote = quoteService.getAllQuotes(null).get(0);
+        assertFalse(sameQuote.getVisible());
+        assertNotNull(sameQuote.getQuoteDate());
 
-        assertFalse(foundQuote.getVisible());
-        assertNotNull(foundQuote.getQuoteDate());
-
-        // Delete Quote
-        quoteService.deleteQuoteById(foundQuote.getQuoteId());
-        assert quoteService.getAllQuotes(null).size() == 0;
+        // Deletes a quote
+        quote = quoteService.getAllQuotes(null).get(0);
+        quoteService.deleteQuoteById(quote.getQuoteId());
+        assertEquals(0, quoteService.getAllQuotes(null).size());
     }
 
+
+    /*
+    Performs a lookup on a non existing quote using a random UUID
+    Test should throw an exception
+     */
     @Test(expected = ResourceNotFoundException.class)
-    public void givenQuoteService_doLookupOnNonExistingQuote() {
-        assert quoteService.getAllQuotes(null).size() == 0;
+    public void india() {
+        assertEquals(quoteService.getAllQuotes(null).size(), 0);
         UUID randomUUID = UUID.randomUUID();
         Quote quote = quoteService.getQuoteById(randomUUID);
     }
 
-    @Test()
-    public void givenQuoteServiceAndMemberService_addQuoteWithNullMember() {
+    /*
+    Attempts to add a quote with a null member
+    Test should throw an exception
+     */
+    @Test(expected = BodyParamsException.class)
+    public void juliet() {
         Quote quote = new Quote()
                 .setQuoteText("Hello, world!")
-                .setMember(null);
+                .setAuthor(null);
         quoteService.addQuote(quote);
     }
 
