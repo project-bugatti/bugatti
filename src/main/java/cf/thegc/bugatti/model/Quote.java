@@ -97,13 +97,12 @@ public class Quote extends AuditModel {
             Visible: true
          */
 
-        StringBuilder quoteBuilder = new StringBuilder();
-        quoteBuilder
+        return new StringBuilder()
                 .append("\"").append(quoteText).append("\"").append("\n\t")
                 .append("Author: ").append(author.getFirstname()).append(" ").append(author.getLastname()).append("\n\t")
                 .append("Quote ID: ").append(quoteId).append("\n\t")
                 .append("Date: ").append(quoteDate).append("\n\t")
-                .append("Visible: ").append(visible);
-        return quoteBuilder.toString();
+                .append("Visible: ").append(visible)
+                .toString();
     }
 }

@@ -4,6 +4,7 @@ import cf.thegc.bugatti.dao.MediaDao;
 import cf.thegc.bugatti.exception.BodyParamsException;
 import cf.thegc.bugatti.exception.ResourceNotFoundException;
 import cf.thegc.bugatti.model.Media;
+import cf.thegc.bugatti.model.Member;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.SdkClientException;
@@ -24,6 +25,10 @@ import java.util.*;
 public class MediaService {
 
     private final MediaDao mediaDao;
+
+    @Autowired
+    private MemberService memberService;
+
     private final static Set<String> ALLOWED_FILE_TYPES = new HashSet<>(Arrays.asList("jpg", "jpeg", "png", "gif"));
 
     // AWS Properties for media upload
@@ -59,9 +64,31 @@ public class MediaService {
             throw new BodyParamsException(BodyParamsException.INVALID_FILETYPE);
         }
 
+        // Checks for a null Member
+        if (media.getUploader() == null) {
+            throw new BodyParamsException(BodyParamsException.MEMBER_OBJECT_MISSING);
+        }
+
+        // Checks for a null Member ID
+        if (media.getUploader().getMemberId() == null) {
+            throw new BodyParamsException(BodyParamsException.MISSING_MEMBER_ID);
+        }
+
+        // Ensures the uploader exists as a member
+        Member uploader = memberService.getMemberById(media.getUploader().getMemberId());
+        media.setUploader(uploader);
+
+        /*
+        Saves the Media object in the database before an S3 presigned URL is requested
+        The DAO sets the Media ID, which is needed to generate a presigned URL
+         */
         HashMap<String, Object> responseMapping = new HashMap<>();
-        URL presignedUrl = generatePresignedS3URL(media.getMediaId());
         responseMapping.put("media", mediaDao.addMedia(media));
+
+        /*
+        The Media ID is no longer null, so generate a presigned URL using the Media's ID
+         */
+        URL presignedUrl = generatePresignedS3URL(media.getMediaId());
         responseMapping.put("presignedUrl", presignedUrl);
         return responseMapping;
     }
@@ -117,7 +144,7 @@ public class MediaService {
                             .withMethod(HttpMethod.GET)
                             .withExpiration(expiration);
             return s3Client.generatePresignedUrl(generatePresignedUrlRequest);
-        } catch (AmazonServiceException e) {
+        } catch (Exception e) {
             // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();

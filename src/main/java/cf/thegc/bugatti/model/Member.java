@@ -44,9 +44,11 @@ public class Member extends AuditModel {
     private Boolean active = true;
 
     @JsonProperty("quotes")
-    @OneToMany(mappedBy = "member")
-    @JsonIgnoreProperties("member") // prevent recursion / stack overflow
+    @OneToMany(mappedBy = "author")
+    @JsonIgnoreProperties("author") // prevent recursion / stack overflow
     private List<Quote> quotes;
+
+    // ToDo: Include media items a member is involved in
 
     public UUID getMemberId() {
         return memberId;

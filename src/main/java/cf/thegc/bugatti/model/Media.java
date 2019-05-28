@@ -29,10 +29,10 @@ public class Media extends AuditModel {
 
     @Id
     @Column(name = "media_id")
-    @JsonProperty(value = "media_id")
+    @JsonProperty("media_id")
     @GeneratedValue(generator = "media_generator")
     @GenericGenerator(
-            name = "media_generator",
+            name = "mediaer_generator",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private UUID mediaId;
@@ -61,82 +61,81 @@ public class Media extends AuditModel {
     @NotNull
     @JsonProperty("uploader")
     @ManyToOne()
-    @JoinColumn(name = "author_member_id")
-    @JsonIgnoreProperties("quotes") // prevents recursion / stack overflow
+    @JoinColumn(name = "uploader_member_id")
+    @JsonIgnoreProperties("quotes") // prevent recursion / stack overflow
     private Member uploader;
 
-    @ManyToMany
-    @JoinTable(
-            name = "members_media",
-            joinColumns = { @JoinColumn(name = "media_id") },
-            inverseJoinColumns = { @JoinColumn(name = "member_id") }
-    )
-    @NotNull
-    @JsonProperty(value = "members")
-    @JsonIgnoreProperties("quotes") // prevents recursion / stack overflow
-    private List<LimitedMember> members;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "members_media",
+//            joinColumns = { @JoinColumn(name = "media_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "member_id") }
+//    )
+//    @NotNull
+//    @JsonProperty(value = "members")
+//    @JsonIgnoreProperties("quotes") // prevents recursion / stack overflow
+//    private List<Member> members;
 
     public UUID getMediaId() {
         return mediaId;
     }
 
-    public void setMediaId(UUID mediaId) {
+    public Media setMediaId(UUID mediaId) {
         this.mediaId = mediaId;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Media setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Media setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public Date getMediaDate() {
         return mediaDate;
     }
 
-    public void setMediaDate(Date mediaDate) {
+    public Media setMediaDate(Date mediaDate) {
         this.mediaDate = mediaDate;
+        return this;
     }
 
     public String getFileType() {
         return fileType;
     }
 
-    public void setFileType(String fileType) {
+    public Media setFileType(String fileType) {
         this.fileType = fileType;
+        return this;
     }
 
     public Boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(Boolean visible) {
+    public Media setVisible(Boolean visible) {
         this.visible = visible;
+        return this;
     }
 
     public Member getUploader() {
         return uploader;
     }
 
-    public void setUploader(Member uploader) {
+    public Media setUploader(Member uploader) {
         this.uploader = uploader;
-    }
-
-    public List<LimitedMember> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<LimitedMember> members) {
-        this.members = members;
+        return this;
     }
 }
