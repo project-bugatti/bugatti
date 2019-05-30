@@ -11,11 +11,13 @@ import java.util.UUID;
 public interface MemberDao {
     Member addMember(Member member);
 
-    List<LimitedMember> getMembers(Pageable pageable);
+    List<LimitedMember> getAllMembers(Pageable pageable);
 
     Optional<Member> getMemberById(UUID memberId);
 
     void updateMember(Member member);
 
     void deleteMemberById(UUID memberId);
+
+    boolean memberExists(UUID memberId);
 }

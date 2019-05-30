@@ -1,0 +1,505 @@
+2019-05-29 16:30:55,661 INFO org.springframework.boot.StartupInfoLogger [main] Starting BugattiApplication on tyler-UX305FA with PID 30759 (/home/tyler/bugatti/target/classes started by tyler in /home/tyler/bugatti)
+2019-05-29 16:30:55,669 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 16:30:55,671 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 16:31:03,627 INFO org.springframework.boot.StartupInfoLogger [main] Started BugattiApplication in 9.429 seconds (JVM running for 10.246)
+2019-05-29 16:31:10,285 DEBUG cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-2] Received request to get member with ID cffdceee-3135-11e9-b210-d663bd873d93
+2019-05-29 16:33:09,323 INFO org.springframework.boot.StartupInfoLogger [main] Starting BugattiApplication on tyler-UX305FA with PID 30893 (/home/tyler/bugatti/target/classes started by tyler in /home/tyler/bugatti)
+2019-05-29 16:33:09,342 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 16:33:09,346 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 16:33:17,056 INFO org.springframework.boot.StartupInfoLogger [main] Started BugattiApplication in 8.898 seconds (JVM running for 9.607)
+2019-05-29 16:33:31,943 DEBUG cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-3] Received request to get member with ID cffdceee-3135-11e9-b210-d663bd873d93
+2019-05-29 16:33:31,944 INFO cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-3] An info message
+2019-05-29 16:33:31,945 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-3] A warn message
+2019-05-29 16:33:31,945 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-3] An error message
+2019-05-29 16:39:30,476 DEBUG cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-4] Received request to get member with ID cffdceee-3135-11e9-b210-d663bd873d93
+2019-05-29 16:39:30,477 INFO cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-4] An info message
+2019-05-29 16:39:30,477 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-4] A warn message
+2019-05-29 16:39:30,478 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-4] An error message
+2019-05-29 16:39:31,986 DEBUG cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-6] Received request to get member with ID cffdceee-3135-11e9-b210-d663bd873d93
+2019-05-29 16:39:31,987 INFO cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-6] An info message
+2019-05-29 16:39:31,988 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-6] A warn message
+2019-05-29 16:39:31,988 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-6] An error message
+2019-05-29 16:39:33,431 DEBUG cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-7] Received request to get member with ID cffdceee-3135-11e9-b210-d663bd873d93
+2019-05-29 16:39:33,432 INFO cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-7] An info message
+2019-05-29 16:39:33,433 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-7] A warn message
+2019-05-29 16:39:33,433 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-7] An error message
+2019-05-29 16:39:34,807 DEBUG cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-8] Received request to get member with ID cffdceee-3135-11e9-b210-d663bd873d93
+2019-05-29 16:39:34,808 INFO cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-8] An info message
+2019-05-29 16:39:34,809 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-8] A warn message
+2019-05-29 16:39:34,810 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-8] An error message
+2019-05-29 16:39:36,313 DEBUG cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-9] Received request to get member with ID cffdceee-3135-11e9-b210-d663bd873d93
+2019-05-29 16:39:36,314 INFO cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-9] An info message
+2019-05-29 16:39:36,315 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-9] A warn message
+2019-05-29 16:39:36,315 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-9] An error message
+2019-05-29 18:46:26,916 INFO org.springframework.boot.StartupInfoLogger [main] Starting MemberControllerIntegrationTest on tyler-UX305FA with PID 2143 (started by tyler in /home/tyler/bugatti)
+2019-05-29 18:46:26,919 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 18:46:26,921 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 18:46:33,986 INFO org.springframework.boot.StartupInfoLogger [main] Started MemberControllerIntegrationTest in 7.586 seconds (JVM running for 8.709)
+2019-05-29 18:46:34,279 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 18:46:34,480 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member James Garfield
+	Phone: null
+	Status: active
+	ID: 2aea5c2e-0df5-4fa5-ba6c-1835ca59f891
+2019-05-29 18:46:34,532 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 18:46:34,538 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member Herbert Hoover
+	Phone: null
+	Status: active
+	ID: 78d04113-3368-4b79-b6db-34c0e93c285f
+2019-05-29 18:46:34,543 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 18:46:34,549 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member Calvin Coolidge
+	Phone: null
+	Status: active
+	ID: f504c281-d84e-47dc-95f8-762533341c63
+2019-05-29 18:46:34,562 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 18:46:34,814 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)
+2019-05-29 18:46:34,890 INFO org.springframework.boot.StartupInfoLogger [main] Starting MembersIntegrationTest on tyler-UX305FA with PID 2143 (started by tyler in /home/tyler/bugatti)
+2019-05-29 18:46:34,891 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 18:46:34,892 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 18:46:37,319 INFO org.springframework.boot.StartupInfoLogger [main] Started MembersIntegrationTest in 2.475 seconds (JVM running for 12.043)
+2019-05-29 18:46:37,511 INFO org.springframework.boot.StartupInfoLogger [main] Starting BugattiApplicationTests on tyler-UX305FA with PID 2143 (started by tyler in /home/tyler/bugatti)
+2019-05-29 18:46:37,511 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 18:46:37,518 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 18:46:39,314 INFO org.springframework.boot.StartupInfoLogger [main] Started BugattiApplicationTests in 1.834 seconds (JVM running for 14.038)
+2019-05-29 18:46:39,344 ERROR cf.thegc.bugatti.service.MemberService [main] Rejected the request to get a non-existent member with ID a0a828af-8650-4d6e-92f3-23c3a00e044a
+2019-05-29 19:14:39,097 INFO org.springframework.boot.StartupInfoLogger [main] Starting MemberControllerIntegrationTest on tyler-UX305FA with PID 3659 (started by tyler in /home/tyler/bugatti)
+2019-05-29 19:14:39,101 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 19:14:39,103 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 19:14:48,396 INFO org.springframework.boot.StartupInfoLogger [main] Started MemberControllerIntegrationTest in 10.081 seconds (JVM running for 12.186)
+2019-05-29 19:14:48,700 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 19:14:48,963 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member John Tyler
+	Phone: null
+	Status: active
+	ID: fa469b67-d079-4f1d-a360-db8df201ceda
+2019-05-29 19:14:49,069 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-29T23:14:48.833+0000",
+  "updated_at" : "2019-05-29T23:14:48.833+0000",
+  "member_id" : "fa469b67-d079-4f1d-a360-db8df201ceda",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 19:14:49,072 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 19:14:49,079 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member Calvin Coolidge
+	Phone: null
+	Status: active
+	ID: 625d9d5f-c29e-42a3-9ed4-b40413ca9731
+2019-05-29 19:14:49,085 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-29T23:14:49.075+0000",
+  "updated_at" : "2019-05-29T23:14:49.075+0000",
+  "member_id" : "625d9d5f-c29e-42a3-9ed4-b40413ca9731",
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 19:14:49,097 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 19:14:49,335 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)
+2019-05-29 19:14:49,354 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] [ {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "member_id" : "fa469b67-d079-4f1d-a360-db8df201ceda"
+}, {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "member_id" : "625d9d5f-c29e-42a3-9ed4-b40413ca9731"
+} ]
+2019-05-29 19:16:15,063 INFO org.springframework.boot.StartupInfoLogger [main] Starting MemberControllerIntegrationTest on tyler-UX305FA with PID 3776 (started by tyler in /home/tyler/bugatti)
+2019-05-29 19:16:15,066 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 19:16:15,068 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 19:16:22,789 INFO org.springframework.boot.StartupInfoLogger [main] Started MemberControllerIntegrationTest in 8.698 seconds (JVM running for 10.212)
+2019-05-29 19:16:23,421 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 19:16:23,655 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member John Tyler
+	Phone: null
+	Status: active
+	ID: 9c12ba86-2ca4-4683-b3fe-4ebd09734a1d
+2019-05-29 19:16:23,754 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-29T23:16:23.541+0000",
+  "updated_at" : "2019-05-29T23:16:23.541+0000",
+  "member_id" : "9c12ba86-2ca4-4683-b3fe-4ebd09734a1d",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 19:16:23,757 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 19:16:23,763 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member Calvin Coolidge
+	Phone: null
+	Status: active
+	ID: 22a133ec-14a5-4d76-be24-45b08258f112
+2019-05-29 19:16:23,769 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-29T23:16:23.760+0000",
+  "updated_at" : "2019-05-29T23:16:23.760+0000",
+  "member_id" : "22a133ec-14a5-4d76-be24-45b08258f112",
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 19:16:23,779 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 19:16:24,080 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)
+2019-05-29 19:16:24,111 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] [ {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "member_id" : "9c12ba86-2ca4-4683-b3fe-4ebd09734a1d"
+}, {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "member_id" : "22a133ec-14a5-4d76-be24-45b08258f112"
+} ]
+2019-05-29 19:38:28,954 INFO org.springframework.boot.StartupInfoLogger [main] Starting MemberControllerIntegrationTest on tyler-UX305FA with PID 4474 (started by tyler in /home/tyler/bugatti)
+2019-05-29 19:38:28,957 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 19:38:28,959 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 19:38:37,745 INFO org.springframework.boot.StartupInfoLogger [main] Started MemberControllerIntegrationTest in 9.688 seconds (JVM running for 11.853)
+2019-05-29 19:38:38,067 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 19:38:38,307 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member John Tyler
+	Phone: null
+	Status: active
+	ID: baaf16da-16bd-4b49-9518-56f57fa50784
+2019-05-29 19:38:38,411 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-29T23:38:38.193+0000",
+  "updated_at" : "2019-05-29T23:38:38.193+0000",
+  "member_id" : "baaf16da-16bd-4b49-9518-56f57fa50784",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 19:38:38,414 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 19:38:38,421 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member Calvin Coolidge
+	Phone: null
+	Status: active
+	ID: e5ffd0fb-600c-4dab-ac4c-e5b45df1edc5
+2019-05-29 19:38:38,427 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-29T23:38:38.417+0000",
+  "updated_at" : "2019-05-29T23:38:38.417+0000",
+  "member_id" : "e5ffd0fb-600c-4dab-ac4c-e5b45df1edc5",
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 19:38:38,440 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 19:38:38,747 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)
+2019-05-29 19:38:38,765 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] [ {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "member_id" : "baaf16da-16bd-4b49-9518-56f57fa50784"
+}, {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "member_id" : "e5ffd0fb-600c-4dab-ac4c-e5b45df1edc5"
+} ]
+2019-05-29 19:45:31,516 INFO org.springframework.boot.StartupInfoLogger [main] Starting MemberControllerIntegrationTest on tyler-UX305FA with PID 4784 (started by tyler in /home/tyler/bugatti)
+2019-05-29 19:45:31,519 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 19:45:31,521 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 19:45:40,117 INFO org.springframework.boot.StartupInfoLogger [main] Started MemberControllerIntegrationTest in 9.384 seconds (JVM running for 11.484)
+2019-05-29 19:45:40,450 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 19:45:40,700 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member John Tyler
+	Phone: null
+	Status: active
+	ID: e75c20ac-5658-4187-a00a-0ac3e7d674e6
+2019-05-29 19:45:40,807 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-29T23:45:40.574+0000",
+  "updated_at" : "2019-05-29T23:45:40.574+0000",
+  "member_id" : "e75c20ac-5658-4187-a00a-0ac3e7d674e6",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 19:45:40,809 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 19:45:40,816 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member Calvin Coolidge
+	Phone: null
+	Status: active
+	ID: 5e8dc16b-c249-476e-9fa4-e0b4bd625603
+2019-05-29 19:45:40,822 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-29T23:45:40.812+0000",
+  "updated_at" : "2019-05-29T23:45:40.812+0000",
+  "member_id" : "5e8dc16b-c249-476e-9fa4-e0b4bd625603",
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 19:45:40,833 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 19:45:41,150 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)
+2019-05-29 19:45:41,167 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] [ {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "member_id" : "e75c20ac-5658-4187-a00a-0ac3e7d674e6"
+}, {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "member_id" : "5e8dc16b-c249-476e-9fa4-e0b4bd625603"
+} ]
+2019-05-29 19:45:41,183 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for member with ID e75c20ac-5658-4187-a00a-0ac3e7d674e6
+2019-05-29 19:45:41,212 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved the member with ID e75c20ac-5658-4187-a00a-0ac3e7d674e6
+2019-05-29 19:47:12,480 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-29T23:45:40.574+0000",
+  "updated_at" : "2019-05-29T23:45:40.574+0000",
+  "member_id" : "e75c20ac-5658-4187-a00a-0ac3e7d674e6",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 23:41:59,779 INFO org.springframework.boot.StartupInfoLogger [main] Starting MemberControllerIntegrationTest on tyler-UX305FA with PID 6915 (started by tyler in /home/tyler/bugatti)
+2019-05-29 23:41:59,782 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 23:41:59,785 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 23:42:07,865 INFO org.springframework.boot.StartupInfoLogger [main] Started MemberControllerIntegrationTest in 8.872 seconds (JVM running for 10.926)
+2019-05-29 23:42:08,230 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 23:42:08,507 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member John Tyler
+	Phone: null
+	Status: active
+	ID: f8251603-beef-4fb7-8714-4e1d2c913cb1
+2019-05-29 23:42:08,619 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-30T03:42:08.362+0000",
+  "updated_at" : "2019-05-30T03:42:08.362+0000",
+  "member_id" : "f8251603-beef-4fb7-8714-4e1d2c913cb1",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 23:42:08,622 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 23:42:08,628 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member Calvin Coolidge
+	Phone: null
+	Status: active
+	ID: 8d09e56d-278a-4016-8a1a-ed95fea9363c
+2019-05-29 23:42:08,634 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-30T03:42:08.625+0000",
+  "updated_at" : "2019-05-30T03:42:08.625+0000",
+  "member_id" : "8d09e56d-278a-4016-8a1a-ed95fea9363c",
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 23:42:08,645 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 23:42:08,926 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)
+2019-05-29 23:42:08,944 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] [ {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "member_id" : "f8251603-beef-4fb7-8714-4e1d2c913cb1"
+}, {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "member_id" : "8d09e56d-278a-4016-8a1a-ed95fea9363c"
+} ]
+2019-05-29 23:42:08,960 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for member with ID f8251603-beef-4fb7-8714-4e1d2c913cb1
+2019-05-29 23:42:08,993 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved the member with ID f8251603-beef-4fb7-8714-4e1d2c913cb1
+2019-05-29 23:42:09,032 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-30T03:42:08.362+0000",
+  "updated_at" : "2019-05-30T03:42:08.362+0000",
+  "member_id" : "f8251603-beef-4fb7-8714-4e1d2c913cb1",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 23:42:09,036 DEBUG cf.thegc.bugatti.api.MemberController [main] Received PUT request to update member with IDf8251603-beef-4fb7-8714-4e1d2c913cb1
+2019-05-29 23:42:09,039 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved the member with ID f8251603-beef-4fb7-8714-4e1d2c913cb1
+2019-05-29 23:42:09,057 INFO cf.thegc.bugatti.service.MemberService [main] Updated member with Id f8251603-beef-4fb7-8714-4e1d2c913cb1
+2019-05-29 23:42:31,162 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 23:42:31,175 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)
+2019-05-29 23:43:29,570 INFO org.springframework.boot.StartupInfoLogger [main] Starting MemberControllerIntegrationTest on tyler-UX305FA with PID 7026 (started by tyler in /home/tyler/bugatti)
+2019-05-29 23:43:29,573 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 23:43:29,576 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 23:43:38,115 INFO org.springframework.boot.StartupInfoLogger [main] Started MemberControllerIntegrationTest in 9.357 seconds (JVM running for 11.548)
+2019-05-29 23:43:38,421 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 23:43:38,640 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member John Tyler
+	Phone: null
+	Status: active
+	ID: a54356d0-f074-408c-9f8c-282cdda9fe55
+2019-05-29 23:43:38,730 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-30T03:43:38.541+0000",
+  "updated_at" : "2019-05-30T03:43:38.541+0000",
+  "member_id" : "a54356d0-f074-408c-9f8c-282cdda9fe55",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 23:43:38,733 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 23:43:38,739 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member Calvin Coolidge
+	Phone: null
+	Status: active
+	ID: a720ca1c-36b9-4778-ad62-08762237ff58
+2019-05-29 23:43:38,744 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-30T03:43:38.736+0000",
+  "updated_at" : "2019-05-30T03:43:38.736+0000",
+  "member_id" : "a720ca1c-36b9-4778-ad62-08762237ff58",
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 23:43:38,756 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 23:43:39,022 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)
+2019-05-29 23:43:39,039 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] [ {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "member_id" : "a54356d0-f074-408c-9f8c-282cdda9fe55"
+}, {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "member_id" : "a720ca1c-36b9-4778-ad62-08762237ff58"
+} ]
+2019-05-29 23:43:39,054 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for member with ID a54356d0-f074-408c-9f8c-282cdda9fe55
+2019-05-29 23:43:39,086 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved the member with ID a54356d0-f074-408c-9f8c-282cdda9fe55
+2019-05-29 23:43:39,106 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-30T03:43:38.541+0000",
+  "updated_at" : "2019-05-30T03:43:38.541+0000",
+  "member_id" : "a54356d0-f074-408c-9f8c-282cdda9fe55",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 23:43:55,992 DEBUG cf.thegc.bugatti.api.MemberController [main] Received PUT request to update member with IDa54356d0-f074-408c-9f8c-282cdda9fe55
+2019-05-29 23:43:56,001 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved the member with ID a54356d0-f074-408c-9f8c-282cdda9fe55
+2019-05-29 23:43:56,067 INFO cf.thegc.bugatti.service.MemberService [main] Updated member with Id a54356d0-f074-408c-9f8c-282cdda9fe55
+2019-05-29 23:44:20,655 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 23:44:20,669 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)
+2019-05-29 23:46:56,462 INFO org.springframework.boot.StartupInfoLogger [main] Starting MemberControllerIntegrationTest on tyler-UX305FA with PID 7299 (started by tyler in /home/tyler/bugatti)
+2019-05-29 23:46:56,465 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.1.4.RELEASE, Spring v5.1.6.RELEASE
+2019-05-29 23:46:56,467 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2019-05-29 23:47:04,736 INFO org.springframework.boot.StartupInfoLogger [main] Started MemberControllerIntegrationTest in 9.119 seconds (JVM running for 11.162)
+2019-05-29 23:47:45,077 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 23:47:46,383 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member John Tyler
+	Phone: null
+	Status: active
+	ID: 03be4a5f-83b5-41bf-9e98-63026f459080
+2019-05-29 23:47:51,537 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-30T03:47:45.913+0000",
+  "updated_at" : "2019-05-30T03:47:45.913+0000",
+  "member_id" : "03be4a5f-83b5-41bf-9e98-63026f459080",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 23:47:55,982 DEBUG cf.thegc.bugatti.api.MemberController [main] Received POST request to add member
+2019-05-29 23:47:56,016 INFO cf.thegc.bugatti.service.MemberService [main] Added a new member Calvin Coolidge
+	Phone: null
+	Status: active
+	ID: 23e3d8c6-9b4d-4dad-9cf6-1c54443c9e21
+2019-05-29 23:47:58,194 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-30T03:47:56.006+0000",
+  "updated_at" : "2019-05-30T03:47:56.006+0000",
+  "member_id" : "23e3d8c6-9b4d-4dad-9cf6-1c54443c9e21",
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 23:48:02,138 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 23:48:03,128 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)
+2019-05-29 23:48:18,705 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] [ {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "member_id" : "03be4a5f-83b5-41bf-9e98-63026f459080"
+}, {
+  "active" : "true",
+  "nickname" : null,
+  "firstname" : "Calvin",
+  "lastname" : "Coolidge",
+  "member_id" : "23e3d8c6-9b4d-4dad-9cf6-1c54443c9e21"
+} ]
+2019-05-29 23:48:51,186 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for member with ID 03be4a5f-83b5-41bf-9e98-63026f459080
+2019-05-29 23:48:51,294 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved the member with ID 03be4a5f-83b5-41bf-9e98-63026f459080
+2019-05-29 23:48:54,305 DEBUG cf.thegc.bugatti.MemberControllerIntegrationTest [main] {
+  "created_at" : "2019-05-30T03:47:45.913+0000",
+  "updated_at" : "2019-05-30T03:47:45.913+0000",
+  "member_id" : "03be4a5f-83b5-41bf-9e98-63026f459080",
+  "firstname" : "John",
+  "lastname" : "Tyler",
+  "nickname" : null,
+  "phone" : null,
+  "active" : true,
+  "quotes" : [ ],
+  "media" : [ ]
+}
+2019-05-29 23:48:58,539 DEBUG cf.thegc.bugatti.api.MemberController [main] Received PUT request to update member with ID03be4a5f-83b5-41bf-9e98-63026f459080
+2019-05-29 23:48:58,547 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved the member with ID 03be4a5f-83b5-41bf-9e98-63026f459080
+2019-05-29 23:48:58,611 INFO cf.thegc.bugatti.service.MemberService [main] Updated member with Id 03be4a5f-83b5-41bf-9e98-63026f459080
+2019-05-29 23:49:02,969 DEBUG cf.thegc.bugatti.api.MemberController [main] Received GET request for all members
+2019-05-29 23:49:02,983 INFO cf.thegc.bugatti.service.MemberService [main] Retrieved all members (0,25)

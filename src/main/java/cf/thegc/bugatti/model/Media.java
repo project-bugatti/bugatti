@@ -7,25 +7,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "media")
 public class Media extends AuditModel {
-
-    enum FileType {
-        JPG,
-        JPEG,
-        PNG,
-        GIF;
-
-        @Override
-        public String toString() {
-            return name().toLowerCase();
-        }
-    }
 
     @Id
     @Column(name = "media_id")
@@ -65,16 +51,16 @@ public class Media extends AuditModel {
     @JsonIgnoreProperties("quotes") // prevent recursion / stack overflow
     private Member uploader;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "members_media",
-//            joinColumns = { @JoinColumn(name = "media_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "member_id") }
-//    )
-//    @NotNull
-//    @JsonProperty(value = "members")
-//    @JsonIgnoreProperties("quotes") // prevents recursion / stack overflow
-//    private List<Member> members;
+    @ManyToMany
+    @JoinTable(
+            name = "members_media",
+            joinColumns = { @JoinColumn(name = "media_id") },
+            inverseJoinColumns = { @JoinColumn(name = "member_id") }
+    )
+    @NotNull
+    @JsonProperty(value = "members")
+    @JsonIgnoreProperties("quotes") // prevents recursion / stack overflow
+    private Set<Member> members = new HashSet<>();
 
     public UUID getMediaId() {
         return mediaId;
@@ -136,6 +122,15 @@ public class Media extends AuditModel {
 
     public Media setUploader(Member uploader) {
         this.uploader = uploader;
+        return this;
+    }
+
+    public Set<Member> getMembers() {
+        return members;
+    }
+
+    public Media setMembers(Set<Member> members) {
+        this.members = members;
         return this;
     }
 }

@@ -5,9 +5,7 @@ import cf.thegc.bugatti.exception.BodyParamsException;
 import cf.thegc.bugatti.exception.ResourceNotFoundException;
 import cf.thegc.bugatti.model.Media;
 import cf.thegc.bugatti.model.Member;
-import com.amazonaws.AmazonServiceException;
 import com.amazonaws.HttpMethod;
-import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -20,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Stream;
 
 @Service
 public class MediaService {
@@ -44,7 +43,7 @@ public class MediaService {
     }
 
     public List<Media> getMedia(Pageable pageable) {
-        return mediaDao.getMedia(pageable);
+        return mediaDao.getAllMedia(pageable);
     }
 
     public Map addMedia(Media media) {
@@ -93,14 +92,15 @@ public class MediaService {
         return responseMapping;
     }
 
-    public Media getMediaById(UUID mediaId) {
-        Optional<Media> media = mediaDao.getMediaById(mediaId);
-        media.orElseThrow(() -> new ResourceNotFoundException("Media", mediaId));
-        return media.get();
+    public Optional<Media> getMediaById(UUID mediaId) {
+        return mediaDao.getMediaById(mediaId);
     }
 
     public void updateMedia(Media updatedMedia) {
-        Media existingMedia = getMediaById(updatedMedia.getMediaId());
+        Optional<Media> optionalMedia = getMediaById(updatedMedia.getMediaId());
+        optionalMedia.orElseThrow(() ->
+                new ResourceNotFoundException("Media", updatedMedia.getMediaId()));
+        Media existingMedia = optionalMedia.get();
 
         // Check (and update) title
         if (updatedMedia.getTitle() != null) existingMedia.setTitle(updatedMedia.getTitle());
@@ -118,7 +118,32 @@ public class MediaService {
         if (updatedMedia.getMediaDate() != null) existingMedia.setMediaDate(updatedMedia.getMediaDate());
 
         mediaDao.updateMedia(updatedMedia);
+    }
 
+    public void addMembersToMedia(UUID mediaId, Set<UUID> memberIds) {
+        // Checks for null media ID
+        if (mediaId == null) {
+            throw new BodyParamsException(BodyParamsException.MISSING_MEDIA_ID);
+        }
+
+        // Checks for null set of Member IDs
+        if (memberIds == null) {
+            throw new BodyParamsException("Missing list of Member IDs");
+        }
+
+        // Checks for non-existent Media
+        Optional<Media> optionalMedia = getMediaById(mediaId);
+        optionalMedia.orElseThrow(() -> new ResourceNotFoundException("Media", mediaId));
+        Media media = optionalMedia.get();
+
+        // Creates a set of Members
+        // Request fails if any one Member does not exist
+        Set<Member> memberSet = new HashSet<>();
+        memberIds.forEach(memberId ->
+                memberSet.add(memberService.getMemberById(memberId)));
+
+        memberSet.forEach(member -> media.getMembers().add(member));
+        mediaDao.updateMedia(media);
     }
 
     public void deleteMediaById(UUID mediaId) {

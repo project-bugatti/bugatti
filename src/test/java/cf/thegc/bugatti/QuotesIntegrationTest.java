@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
@@ -41,7 +42,7 @@ public class QuotesIntegrationTest {
     public void main() {
 
         // Asserts no members exist
-        assertEquals(0, memberService.getMembers(null).size());
+        assertEquals(0, memberService.getAllMembers(null).size());
 
         // Asserts no quotes exist
         assertEquals(0, quoteService.getAllQuotes(null).size());
@@ -53,11 +54,11 @@ public class QuotesIntegrationTest {
         memberService.addMember(member);
 
         // Asserts one member exists
-        List<LimitedMember> members = memberService.getMembers(null);
-        assertNotNull(memberService.getMembers(null).get(0));
+        List<LimitedMember> members = memberService.getAllMembers(null);
+        assertNotNull(memberService.getAllMembers(null).get(0));
 
         // Creates and adds a quote with an author
-        UUID memberId = memberService.getMembers(null).get(0).getMemberId();
+        UUID memberId = memberService.getAllMembers(null).get(0).getMemberId();
         member = memberService.getMemberById(memberId);
         Quote quote = new Quote()
                 .setQuoteText("Hello, world!")
@@ -89,11 +90,11 @@ public class QuotesIntegrationTest {
 
 
     /*
-    Performs a lookup on a non existing quote using a random UUID
+    Performs a lookup on a non-existing quote using a random UUID
     Test should throw an exception
      */
     @Test(expected = ResourceNotFoundException.class)
-    public void india() {
+    public void lookupNonExistingQuote() {
         assertEquals(quoteService.getAllQuotes(null).size(), 0);
         UUID randomUUID = UUID.randomUUID();
         Quote quote = quoteService.getQuoteById(randomUUID);
@@ -104,10 +105,26 @@ public class QuotesIntegrationTest {
     Test should throw an exception
      */
     @Test(expected = BodyParamsException.class)
-    public void juliet() {
+    public void addQuoteWithNullMember() {
         Quote quote = new Quote()
                 .setQuoteText("Hello, world!")
                 .setAuthor(null);
+        quoteService.addQuote(quote);
+    }
+
+    /*
+    Attempts to add a quote with a non-existing member
+    Test should throw an exception
+     */
+    @Test(expected = ResourceNotFoundException.class)
+    public void addQuoteWithNonExistingMember() {
+        Member member = new Member()
+                .setFirstname("Abe")
+                .setLastname("Lincoln")
+                .setMemberId(UUID.randomUUID());
+        Quote quote = new Quote()
+                .setQuoteText("Hello, world!")
+                .setAuthor(member);
         quoteService.addQuote(quote);
     }
 

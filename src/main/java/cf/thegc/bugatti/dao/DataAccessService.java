@@ -43,7 +43,7 @@ public class DataAccessService implements QuoteDao, MemberDao, MediaDao {
     }
 
     @Override
-    public List<LimitedMember> getMembers(Pageable pageable) {
+    public List<LimitedMember> getAllMembers(Pageable pageable) {
         return memberRepository.getAllBy(pageable).getContent();
     }
 
@@ -60,6 +60,11 @@ public class DataAccessService implements QuoteDao, MemberDao, MediaDao {
     @Override
     public void deleteMemberById(UUID memberId) {
         memberRepository.deleteById(memberId);
+    }
+
+    @Override
+    public boolean memberExists(UUID memberId) {
+        return memberRepository.existsById(memberId);
     }
 
     // Quote methods
@@ -94,7 +99,7 @@ public class DataAccessService implements QuoteDao, MemberDao, MediaDao {
     // Media methods
 
     @Override
-    public List<Media> getMedia(Pageable pageable) {
+    public List<Media> getAllMedia(Pageable pageable) {
         return mediaRepository.getAllBy(pageable).getContent();
     }
 

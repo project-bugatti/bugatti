@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -43,19 +45,24 @@ public class Member extends AuditModel {
     @JsonProperty("active")
     private Boolean active = true;
 
+    @NotNull
     @JsonProperty("quotes")
     @OneToMany(mappedBy = "author")
     @JsonIgnoreProperties("author") // prevent recursion / stack overflow
-    private List<Quote> quotes;
+    private List<Quote> quotes = new ArrayList<>();
 
-    // ToDo: Include media items a member is involved in
+    @NotNull
+    @JsonProperty("media")
+    @ManyToMany(mappedBy = "members")
+    private List<Media> media = new ArrayList<>();
 
     public UUID getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(UUID memberId) {
+    public Member setMemberId(UUID memberId) {
         this.memberId = memberId;
+        return this;
     }
 
     public String getFirstname() {
@@ -115,6 +122,14 @@ public class Member extends AuditModel {
     public Boolean toggleActive() {
         this.active = !active;
         return this.active;
+    }
+
+    public List<Media> getMedia() {
+        return media;
+    }
+
+    public void setMedia(List<Media> media) {
+        this.media = media;
     }
 
     @Override

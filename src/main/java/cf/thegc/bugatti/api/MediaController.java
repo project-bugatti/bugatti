@@ -1,5 +1,6 @@
 package cf.thegc.bugatti.api;
 
+import cf.thegc.bugatti.exception.ResourceNotFoundException;
 import cf.thegc.bugatti.model.Media;
 import cf.thegc.bugatti.service.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/media")
@@ -30,7 +32,9 @@ public class MediaController {
 
     @GetMapping(path = "{mediaId}")
     public Media getMediabyId(@PathVariable("mediaId") UUID mediaId) {
-        return mediaService.getMediaById(mediaId);
+        Optional<Media> optionalMedia = mediaService.getMediaById(mediaId);
+        optionalMedia.orElseThrow(() -> new ResourceNotFoundException("Media", mediaId));
+        return optionalMedia.get();
     }
 
     @PostMapping

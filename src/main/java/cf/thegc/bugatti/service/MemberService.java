@@ -2,8 +2,11 @@ package cf.thegc.bugatti.service;
 
 import cf.thegc.bugatti.dao.LimitedMember;
 import cf.thegc.bugatti.dao.MemberDao;
+import cf.thegc.bugatti.exception.BodyParamsException;
 import cf.thegc.bugatti.exception.ResourceNotFoundException;
 import cf.thegc.bugatti.model.Member;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
@@ -17,37 +20,48 @@ import java.util.UUID;
 public class MemberService {
 
     private final MemberDao memberDao;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public MemberService(@Qualifier("postgres") MemberDao memberDao) {
         this.memberDao = memberDao;
     }
 
-    public Member addMember(Member member) {
-        return memberDao.addMember(member);
+    public Member addMember(Member memberToAdd) {
+        Member addedMember = memberDao.addMember(memberToAdd);
+        logger.info("Added a new member " + addedMember.toString());
+        return addedMember;
     }
 
-    public List<LimitedMember> getMembers(Pageable pageable) {
-        return memberDao.getMembers(pageable);
+    public List<LimitedMember> getAllMembers(Pageable pageable) {
+        List<LimitedMember> allMembers = memberDao.getAllMembers(pageable);
+        logger.info("Retrieved all members (" + pageable.getPageNumber() + "," + pageable.getPageSize() + ")");
+        return allMembers;
     }
 
-    public Member getMember(Member member) {
-        return getMemberById(member.getMemberId());
-    }
-
-
-    /**
-     * @param memberId UUID of member
-     * @return Member object if lookup returned a member, or throws an exception
-     */
     public Member getMemberById(UUID memberId) {
-        Optional<Member> member = memberDao.getMemberById(memberId);
-        member.orElseThrow(() -> new ResourceNotFoundException("Member", memberId));
-        return member.get();
+        Optional<Member> optionalMember = memberDao.getMemberById(memberId);
+        optionalMember.orElseThrow(() -> {
+            logger.error("Rejected the request to get a non-existent member with ID " + memberId);
+            return new ResourceNotFoundException("Member", memberId);
+        });
+        logger.info("Retrieved the member with ID " + memberId);
+        return optionalMember.get();
     }
 
     public void updateMember(Member updatedMember) {
-        Member existingMember = getMemberById(updatedMember.getMemberId());
+        // Check for null Member
+        if (updatedMember == null) {
+            throw new BodyParamsException(BodyParamsException.MEMBER_OBJECT_MISSING);
+        }
+
+        // Check for null Member ID
+        if (updatedMember.getMemberId() == null) {
+            throw new BodyParamsException(BodyParamsException.MISSING_MEMBER_ID);
+        }
+
+        UUID memberId = updatedMember.getMemberId();
+        Member existingMember = getMemberById(memberId);
 
         // Check (and update) nickname
         if (updatedMember.getNickname() != null) existingMember.setNickname(updatedMember.getNickname());
@@ -59,10 +73,22 @@ public class MemberService {
         if (updatedMember.getActive() != null) existingMember.setActive(updatedMember.getActive());
 
         memberDao.updateMember(existingMember);
+        logger.info("Updated member with Id " + memberId);
     }
 
     public void deleteMemberById(UUID memberId) {
-        Member existingMember = getMemberById(memberId);
-        memberDao.deleteMemberById(memberId);
+        if (memberExists(memberId)) {
+            memberDao.deleteMemberById(memberId);
+            logger.info("Deleted member with ID " + memberId);
+        } else {
+            logger.error("Rejected the request to delete a non-existent member with ID " + memberId);
+            throw new ResourceNotFoundException(memberId);
+        }
+    }
+
+    public boolean memberExists(UUID memberId) {
+        boolean exists = memberDao.memberExists(memberId);
+        logger.info("Request to determine Member existence with ID " + memberId + " returned " + exists);
+        return exists;
     }
 }

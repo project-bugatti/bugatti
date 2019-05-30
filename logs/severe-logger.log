@@ -1,0 +1,13 @@
+2019-05-29 16:33:31,945 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-3] A warn message
+2019-05-29 16:33:31,945 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-3] An error message
+2019-05-29 16:39:30,477 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-4] A warn message
+2019-05-29 16:39:30,478 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-4] An error message
+2019-05-29 16:39:31,988 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-6] A warn message
+2019-05-29 16:39:31,988 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-6] An error message
+2019-05-29 16:39:33,433 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-7] A warn message
+2019-05-29 16:39:33,433 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-7] An error message
+2019-05-29 16:39:34,809 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-8] A warn message
+2019-05-29 16:39:34,810 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-8] An error message
+2019-05-29 16:39:36,315 WARN cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-9] A warn message
+2019-05-29 16:39:36,315 ERROR cf.thegc.bugatti.api.MemberController [http-nio-8080-exec-9] An error message
+2019-05-29 18:46:39,344 ERROR cf.thegc.bugatti.service.MemberService [main] Rejected the request to get a non-existent member with ID a0a828af-8650-4d6e-92f3-23c3a00e044a

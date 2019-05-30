@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
@@ -34,7 +35,7 @@ public class MembersIntegrationTest {
     @Test
     public void main() {
         // Asserts no members exist
-        List<LimitedMember> members = memberService.getMembers(null);
+        List<LimitedMember> members = memberService.getAllMembers(null);
         assertEquals(members.size(), 0);
 
         // Creates and adds a member
@@ -44,11 +45,11 @@ public class MembersIntegrationTest {
         memberService.addMember(member);
 
         // Asserts one member exists
-        assertEquals(1, memberService.getMembers(null).size());
-        assertNotNull(memberService.getMembers(null).get(0));
+        assertEquals(1, memberService.getAllMembers(null).size());
+        assertNotNull(memberService.getAllMembers(null).get(0));
 
         // Performs a member lookup using a member ID
-        UUID memberId = memberService.getMembers(null).get(0).getMemberId();
+        UUID memberId = memberService.getAllMembers(null).get(0).getMemberId();
         member = memberService.getMemberById(memberId);
 
         // Update a member
@@ -56,8 +57,7 @@ public class MembersIntegrationTest {
         assertNull(member.getPhone());
         assertNull(member.getNickname());
 
-        member
-                .setActive(false)
+        member.setActive(false)
                 .setPhone("0123456789")
                 .setNickname("Father of His Country");
         memberService.updateMember(member);
@@ -69,12 +69,12 @@ public class MembersIntegrationTest {
 
         // Deletes a member
         memberService.deleteMemberById(memberId);
-        assertEquals(0, memberService.getMembers(null).size());
+        assertEquals(0, memberService.getAllMembers(null).size());
     }
 
     @Test(expected = ResourceNotFoundException.class)
     public void doLookupOnNonExistingMember() {
-        assertEquals(0, memberService.getMembers(null).size());
+        assertEquals(0, memberService.getAllMembers(null).size());
         UUID randomUUID = UUID.randomUUID();
         Member member = memberService.getMemberById(randomUUID);
     }
