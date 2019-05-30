@@ -35,7 +35,7 @@ public class MemberService {
 
     public List<LimitedMember> getAllMembers(Pageable pageable) {
         List<LimitedMember> allMembers = memberDao.getAllMembers(pageable);
-        logger.info("Retrieved all members (" + pageable.getPageNumber() + "," + pageable.getPageSize() + ")");
+        logger.info("Retrieved all members");
         return allMembers;
     }
 
@@ -62,6 +62,12 @@ public class MemberService {
 
         UUID memberId = updatedMember.getMemberId();
         Member existingMember = getMemberById(memberId);
+
+        // Check (and update) first name
+        if (updatedMember.getFirstname() != null) existingMember.setFirstname(updatedMember.getFirstname());
+
+        // Check (and update) last name
+        if (updatedMember.getLastname() != null) existingMember.setLastname(updatedMember.getLastname());
 
         // Check (and update) nickname
         if (updatedMember.getNickname() != null) existingMember.setNickname(updatedMember.getNickname());

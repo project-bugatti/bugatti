@@ -3,6 +3,7 @@ package cf.thegc.bugatti.model;
 import cf.thegc.bugatti.dao.LimitedMember;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -54,13 +55,13 @@ public class Media extends AuditModel {
     @ManyToMany
     @JoinTable(
             name = "members_media",
-            joinColumns = { @JoinColumn(name = "media_id") },
-            inverseJoinColumns = { @JoinColumn(name = "member_id") }
+            joinColumns = {@JoinColumn(name = "media_id")},
+            inverseJoinColumns = {@JoinColumn(name = "member_id")}
     )
     @NotNull
     @JsonProperty(value = "members")
     @JsonIgnoreProperties("quotes") // prevents recursion / stack overflow
-    private Set<Member> members = new HashSet<>();
+    private List<Member> members = new ArrayList<>();
 
     public UUID getMediaId() {
         return mediaId;
@@ -125,12 +126,31 @@ public class Media extends AuditModel {
         return this;
     }
 
-    public Set<Member> getMembers() {
+    public List<Member> getMembers() {
         return members;
     }
 
-    public Media setMembers(Set<Member> members) {
+    public Media setMembers(List<Member> members) {
         this.members = members;
+        return this;
+    }
+
+    public Media addMember(Member member) {
+        this.members.add(member);
+        return this;
+    }
+
+    public Media removeMember(Member memberToRemove) {
+        boolean removed = false;
+        Iterator<Member> iterator = this.members.iterator();
+        while (!removed && iterator.hasNext()) {
+            if (iterator.next().getMemberId().equals(memberToRemove.getMemberId())) {
+                iterator.remove();
+                removed = true;
+            } else {
+                iterator.next();
+            }
+        }
         return this;
     }
 }

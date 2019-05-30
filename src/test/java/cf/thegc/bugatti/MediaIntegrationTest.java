@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Optional;
+import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
@@ -30,15 +32,17 @@ public class MediaIntegrationTest {
 
     /**
      * Steps:
-     * 1) Assert no members exist
-     * 2) Assert no media exists
-     * 3) Create and add a member
-     * 4) Create and add a media item
-     * 5) Lookup media item by ID
-     * 6) Update a media item
-     * 7) Delete a media item
+     * Assert no members exist
+     * Assert no media exists
+     * Create and add a member
+     * Create and add a media item
+     * Lookup media item by ID
+     * Update a media item
+     * Add a member to a media item
+     * Delete a media item
      */
     @Test
+    @Transactional // Prevents LazyInitializationException
     public void main() {
 
         // Asserts no members exists
@@ -61,9 +65,7 @@ public class MediaIntegrationTest {
 
         // Looks up a media item by ID
         UUID mediaId = media.getMediaId();
-        Optional<Media> optionalMedia = mediaService.getMediaById(mediaId);
-        optionalMedia.orElseThrow(() -> new ResourceNotFoundException("Media", mediaId));
-        media = optionalMedia.get();
+        media = mediaService.getMediaById(mediaId);
         assertNotNull(media);
 
         // Updates a media item
@@ -75,6 +77,17 @@ public class MediaIntegrationTest {
         media = mediaService.getMedia(null).get(0);
         assertNotNull(media.getTitle());
         assertFalse(media.getVisible());
+
+        // Adds a member to a media item
+        UUID memberId = memberService.getAllMembers(null).get(0).getMemberId();
+        Set<UUID> setMemberIds = new HashSet<>();
+        setMemberIds.add(memberId);
+        mediaService.modifyMembersOnMedia(mediaId, setMemberIds, true);
+        assertEquals(memberId, mediaService.getMediaById(mediaId).getMembers().get(0).getMemberId());
+
+        // Removes a member from a media item
+        mediaService.modifyMembersOnMedia(mediaId, setMemberIds, false);
+        assertEquals(0, mediaService.getMediaById(mediaId).getMembers().size());
 
         // Deletes a media item
         media = mediaService.getMedia(null).get(0);
@@ -90,9 +103,7 @@ public class MediaIntegrationTest {
     public void lookupNonExistingMedia() {
         assertEquals(0, mediaService.getMedia(null).size());
         UUID randomUUID = UUID.randomUUID();
-        Optional<Media> optionalMedia = mediaService.getMediaById(randomUUID);
-        optionalMedia.orElseThrow(() -> new ResourceNotFoundException("Media", randomUUID));
-        Media media = optionalMedia.get();
+        mediaService.getMediaById(randomUUID);
     }
 
     /*

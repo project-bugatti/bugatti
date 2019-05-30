@@ -10,6 +10,9 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import org.hibernate.Hibernate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,12 +21,12 @@ import org.springframework.stereotype.Service;
 
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Stream;
 
 @Service
 public class MediaService {
 
     private final MediaDao mediaDao;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private MemberService memberService;
@@ -92,15 +95,29 @@ public class MediaService {
         return responseMapping;
     }
 
-    public Optional<Media> getMediaById(UUID mediaId) {
-        return mediaDao.getMediaById(mediaId);
+    public Media getMediaById(UUID mediaId) {
+        Optional<Media> optionalMedia = mediaDao.getMediaById(mediaId);
+        optionalMedia.orElseThrow(() -> {
+            logger.error("Rejected the request to get a non-existent media with ID " + mediaId);
+            return new ResourceNotFoundException("Media", mediaId);
+        });
+        return optionalMedia.get();
     }
 
     public void updateMedia(Media updatedMedia) {
-        Optional<Media> optionalMedia = getMediaById(updatedMedia.getMediaId());
-        optionalMedia.orElseThrow(() ->
-                new ResourceNotFoundException("Media", updatedMedia.getMediaId()));
-        Media existingMedia = optionalMedia.get();
+        // Check for null media
+        if (updatedMedia == null) {
+            throw new BodyParamsException(BodyParamsException.MEDIA_OBJECT_MISSING);
+        }
+
+        // Check for null media ID
+        if (updatedMedia.getMediaId() == null) {
+            throw new BodyParamsException(BodyParamsException.MISSING_MEDIA_ID);
+        }
+
+        // Check for non-existent media
+        UUID mediaId = updatedMedia.getMediaId();
+        Media existingMedia = getMediaById(updatedMedia.getMediaId());
 
         // Check (and update) title
         if (updatedMedia.getTitle() != null) existingMedia.setTitle(updatedMedia.getTitle());
@@ -118,32 +135,44 @@ public class MediaService {
         if (updatedMedia.getMediaDate() != null) existingMedia.setMediaDate(updatedMedia.getMediaDate());
 
         mediaDao.updateMedia(updatedMedia);
+        logger.info("Updated media with ID " + mediaId);
     }
 
-    public void addMembersToMedia(UUID mediaId, Set<UUID> memberIds) {
+    public void modifyMembersOnMedia(UUID mediaId, Set<UUID> setMemberIds, boolean addMembers) {
         // Checks for null media ID
         if (mediaId == null) {
             throw new BodyParamsException(BodyParamsException.MISSING_MEDIA_ID);
         }
 
         // Checks for null set of Member IDs
-        if (memberIds == null) {
+        if (setMemberIds == null) {
             throw new BodyParamsException("Missing list of Member IDs");
         }
 
         // Checks for non-existent Media
-        Optional<Media> optionalMedia = getMediaById(mediaId);
-        optionalMedia.orElseThrow(() -> new ResourceNotFoundException("Media", mediaId));
-        Media media = optionalMedia.get();
+        Media media = getMediaById(mediaId);
 
-        // Creates a set of Members
+        // Creates a set of Members by performing lookups by ID
         // Request fails if any one Member does not exist
         Set<Member> memberSet = new HashSet<>();
-        memberIds.forEach(memberId ->
-                memberSet.add(memberService.getMemberById(memberId)));
+        setMemberIds.forEach(memberId -> memberSet.add(memberService.getMemberById(memberId)));
 
-        memberSet.forEach(member -> media.getMembers().add(member));
+        if (addMembers) {
+            // Adds each member to the media
+            memberSet.forEach(member -> {
+                media.addMember(member);
+                logger.debug("Added member with ID " + member.getMemberId() + " to media with ID " + media.getMediaId());
+            });
+        } else {
+            // Removes each member from the media
+            memberSet.forEach(member -> {
+                Hibernate.initialize(media.getMembers());
+                media.removeMember(member);
+                logger.debug("Removed member with ID " + member.getMemberId() + " from media with ID " + media.getMediaId());
+            });
+        }
         mediaDao.updateMedia(media);
+        logger.info("Updated media with ID " + mediaId);
     }
 
     public void deleteMediaById(UUID mediaId) {
@@ -157,22 +186,24 @@ public class MediaService {
                     .withCredentials(new ProfileCredentialsProvider())
                     .build();
 
-            // Set the presigned URL to expire after one hour.
+            // Set the presigned URL to expire after one hour
             java.util.Date expiration = new java.util.Date();
             long expTimeMillis = expiration.getTime();
             expTimeMillis += 1000 * 60 * 60;
             expiration.setTime(expTimeMillis);
 
-            // Generate the presigned URL.
+            // Generate the presigned URL
             GeneratePresignedUrlRequest generatePresignedUrlRequest =
                     new GeneratePresignedUrlRequest(AWS_S3_MEDIA_BUCKET_NAME, mediaId.toString())
                             .withMethod(HttpMethod.GET)
                             .withExpiration(expiration);
-            return s3Client.generatePresignedUrl(generatePresignedUrlRequest);
+            URL presignedUrl = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
+            logger.info("Generated an S3 presigned URL for media with ID " + mediaId);
+            return presignedUrl;
         } catch (Exception e) {
             // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
-            e.printStackTrace();
+            logger.error(e.toString());
             throw new RuntimeException(e);
         }
     }

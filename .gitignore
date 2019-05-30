@@ -30,3 +30,6 @@ HELP.md
 
 ### Properties File for Datasource ###
 /src/main/resources/datasource.properties
+
+### Logs directory
+logs/
