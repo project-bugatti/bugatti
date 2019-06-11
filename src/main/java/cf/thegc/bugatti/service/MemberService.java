@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,11 +21,19 @@ import java.util.UUID;
 public class MemberService {
 
     private final MemberDao memberDao;
+    private final AuthenticationService authenticationService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    public MemberService(@Qualifier("postgres") MemberDao memberDao) {
+    private final HttpServletRequest httpServletRequest;
+
+    @Autowired
+    public MemberService(@Qualifier("postgres") MemberDao memberDao,
+                         AuthenticationService authenticationService,
+                         HttpServletRequest httpServletRequest) {
         this.memberDao = memberDao;
+        this.authenticationService = authenticationService;
+        this.httpServletRequest = httpServletRequest;
     }
 
     public Member addMember(Member memberToAdd) {
@@ -40,6 +49,8 @@ public class MemberService {
     }
 
     public Member getMemberById(UUID memberId) {
+        authenticationService.verifyJWT(httpServletRequest);
+
         Optional<Member> optionalMember = memberDao.getMemberById(memberId);
         optionalMember.orElseThrow(() -> {
             logger.error("Rejected the request to get a non-existent member with ID " + memberId);

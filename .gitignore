@@ -33,3 +33,6 @@ HELP.md
 
 ### Logs directory
 logs/
+
+### Private Key for Authentication
+/src/main/resources/private.pem
