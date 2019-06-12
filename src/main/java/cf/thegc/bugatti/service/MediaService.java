@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.net.URL;
 import java.util.*;
 
@@ -26,10 +27,14 @@ import java.util.*;
 public class MediaService {
 
     private final MediaDao mediaDao;
+    private final AuthenticationService authenticationService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private final HttpServletRequest httpServletRequest;
 
     private final static Set<String> ALLOWED_FILE_TYPES = new HashSet<>(Arrays.asList("jpg", "jpeg", "png", "gif"));
 
@@ -41,8 +46,12 @@ public class MediaService {
     private String AWS_S3_MEDIA_BUCKET_NAME;
 
     @Autowired
-    public MediaService(@Qualifier("postgres") MediaDao mediaDao) {
+    public MediaService(@Qualifier("postgres") MediaDao mediaDao,
+                        AuthenticationService authenticationService,
+                        HttpServletRequest httpServletRequest) {
         this.mediaDao = mediaDao;
+        this.authenticationService = authenticationService;
+        this.httpServletRequest = httpServletRequest;
     }
 
     public List<Media> getMedia(Pageable pageable) {
@@ -50,6 +59,9 @@ public class MediaService {
     }
 
     public Map addMedia(Media media) {
+
+        // Requires AuthN
+        authenticationService.verifyJWT(httpServletRequest);
 
         // Checks for a null media object
         if (media == null) {
@@ -105,6 +117,9 @@ public class MediaService {
     }
 
     public void updateMedia(Media updatedMedia) {
+        // Requies AuthN
+        authenticationService.verifyJWT(httpServletRequest);
+
         // Check for null media
         if (updatedMedia == null) {
             throw new BodyParamsException(BodyParamsException.MEDIA_OBJECT_MISSING);
@@ -139,6 +154,9 @@ public class MediaService {
     }
 
     public void modifyMembersOnMedia(UUID mediaId, Set<UUID> setMemberIds, boolean addMembers) {
+        // Requires AuthN
+        authenticationService.verifyJWT(httpServletRequest);
+
         // Checks for null media ID
         if (mediaId == null) {
             throw new BodyParamsException(BodyParamsException.MISSING_MEDIA_ID);
@@ -176,6 +194,9 @@ public class MediaService {
     }
 
     public void deleteMediaById(UUID mediaId) {
+        // Requires AuthN
+        authenticationService.verifyJWT(httpServletRequest);
+
         mediaDao.deleteMediaById(mediaId);
     }
 

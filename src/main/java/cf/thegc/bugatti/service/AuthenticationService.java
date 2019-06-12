@@ -1,19 +1,20 @@
 package cf.thegc.bugatti.service;
 
+import cf.thegc.bugatti.exception.UnauthorizedException;
+import com.auth0.jwk.*;
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class AuthenticationService {
@@ -26,34 +27,43 @@ public class AuthenticationService {
     public void verifyJWT(HttpServletRequest httpServletRequest) {
         String authorizationHeader = httpServletRequest.getHeader(AUTHORIZATION_HEADER_KEY);
 
-        // Split a string by a space - https://stackoverflow.com/questions/7899525/how-to-split-a-string-by-space
+        // Splits the string by a space
         String[] splitAuthorizationHeader = authorizationHeader.split("\\s+");
-        if (splitAuthorizationHeader.length != 2) {
-            throwUnauthorized();
+        if (splitAuthorizationHeader.length != 2 || !splitAuthorizationHeader[0].toUpperCase().equals(BEARER)) {
+            throwUnauthorized("Malformed Authorization header");
         }
 
-        if (!splitAuthorizationHeader[0].toUpperCase().equals(BEARER)) {
-            throwUnauthorized();
-        }
-
-        String token = splitAuthorizationHeader[1];
-
-        RSAPublicKey publicKey = null;
-        RSAPrivateKey privateKey = null;
         try {
-            Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("auth0")
-                    .build(); //Reusable verifier instance
-            DecodedJWT jwt = verifier.verify(token);
-        } catch (JWTVerificationException exception) {
-            //Invalid signature/claims
-        }
+            String token = splitAuthorizationHeader[1];
+            DecodedJWT decodedJWT = JWT.decode(token);
+            JwkProvider provider = new JwkProviderBuilder("https://thegc.auth0.com/.well-known/jwks.json")
+                    .cached(10, 24, TimeUnit.HOURS)
+                    .build();
+            Jwk jwk = provider.get(decodedJWT.getKeyId());
+            Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
+            algorithm.verify(decodedJWT);
 
+            // Checks token expiration time
+            Long expiresAt = decodedJWT.getExpiresAt().getTime();
+            Long currentTime = new Date().getTime();
+            if (expiresAt < currentTime) {
+                throwUnauthorized("Token expired");
+            }
+        } catch (JWTDecodeException e) {
+            throwUnauthorized("Unable to decode JWT");
+        } catch (SignatureVerificationException e) {
+            logger.debug(e.getMessage());
+            throwUnauthorized("Token signature unverified");
+        } catch (JwkException e) {
+            throwUnauthorized("Unable to verify JWT");
+        }
     }
 
-    private void throwUnauthorized() {
-        throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
+    private void throwUnauthorized(String details) {
+        logger.info("Unauthorized");
+        logger.info(details);
+        throw new UnauthorizedException(details);
+        //throw new UnauthorizedException(details);
     }
 
 }

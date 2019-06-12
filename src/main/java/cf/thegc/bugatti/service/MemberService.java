@@ -37,6 +37,8 @@ public class MemberService {
     }
 
     public Member addMember(Member memberToAdd) {
+        // Requires AuthN
+        authenticationService.verifyJWT(httpServletRequest);
         Member addedMember = memberDao.addMember(memberToAdd);
         logger.info("Added a new member " + addedMember.toString());
         return addedMember;
@@ -49,8 +51,6 @@ public class MemberService {
     }
 
     public Member getMemberById(UUID memberId) {
-        authenticationService.verifyJWT(httpServletRequest);
-
         Optional<Member> optionalMember = memberDao.getMemberById(memberId);
         optionalMember.orElseThrow(() -> {
             logger.error("Rejected the request to get a non-existent member with ID " + memberId);
@@ -61,6 +61,9 @@ public class MemberService {
     }
 
     public void updateMember(Member updatedMember) {
+        // Requires AuthN
+        authenticationService.verifyJWT(httpServletRequest);
+
         // Check for null Member
         if (updatedMember == null) {
             throw new BodyParamsException(BodyParamsException.MEMBER_OBJECT_MISSING);
@@ -94,6 +97,9 @@ public class MemberService {
     }
 
     public void deleteMemberById(UUID memberId) {
+        // Requires AuthN
+        authenticationService.verifyJWT(httpServletRequest);
+
         if (memberExists(memberId)) {
             memberDao.deleteMemberById(memberId);
             logger.info("Deleted member with ID " + memberId);

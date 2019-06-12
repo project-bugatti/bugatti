@@ -18,6 +18,19 @@ Tutorial: https://www.springboottutorial.com/spring-boot-exception-handling-for-
 @RestController
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(UnauthorizedException.class)
+    public final ResponseEntity<ErrorDetails> handleUnauthorizedException(UnauthorizedException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), ex.getDetails());
+        return new ResponseEntity<>(errorDetails, ex.getStatus());
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public final ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, ex.getStatus());
+    }
+
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ErrorDetails> handleAllExceptions(Exception ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
