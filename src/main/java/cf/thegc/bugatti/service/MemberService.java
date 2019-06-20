@@ -21,7 +21,6 @@ import java.util.UUID;
 public class MemberService {
 
     private final MemberDao memberDao;
-    private final AuthenticationService authenticationService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
