@@ -33,10 +33,10 @@ public class MediaService {
     private final static Set<String> ALLOWED_FILE_TYPES = new HashSet<>(Arrays.asList("jpg", "jpeg", "png", "gif"));
 
     // AWS Properties for media upload
-    @Value("${aws_client_region}")
+    @Value("${aws.client_region}")
     private String AWS_CLIENT_REGION;
 
-    @Value("${aws_s3_media_bucket_name}")
+    @Value("${aws.s3_media_bucket_name}")
     private String AWS_S3_MEDIA_BUCKET_NAME;
 
     @Autowired

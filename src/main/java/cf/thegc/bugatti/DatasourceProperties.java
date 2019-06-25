@@ -6,5 +6,6 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource")
-@PropertySource(value = "classpath:datasource.properties")
-public class DatasourceProperties {}
+@PropertySource(value = "classpath:datasource.yml")
+public class DatasourceProperties {
+}

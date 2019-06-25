@@ -35,9 +35,10 @@ public class JWTFilter extends GenericFilterBean {
 
     private String resolveToken(HttpServletRequest httpServletRequest) {
         String bearerToken = httpServletRequest.getHeader(SecurityConfiguration.AUTHORIZATION_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(SecurityConfiguration.BEARER)) {
+            return bearerToken.substring(SecurityConfiguration.BEARER.length());
         }
+        logger.debug("Authorization header improperly formatted");
         return null;
     }
 }

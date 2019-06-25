@@ -36,18 +36,23 @@ public class MemberControllerIntegrationTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * 1) Add a member
-     * 2) Get all members (array of type LimitedMember)
-     * 3) Get the Member ID of the Member in position zero
-     * 4) Perform a Member lookup by that ID
-     * 5) Update the Member
-     * 6) Delete the Member
+     * - Generate a JWT from Auth0 using a client credentials grant
+     * - Add a member
+     * - Get all members (array of type LimitedMember)
+     * - Get the Member ID of the Member in position zero
+     * - Perform a Member lookup by that ID
+     * - Update the Member
+     * - Delete the Member
      *
      * @throws Exception - MockMvc exception
      */
     @Test
     public void main() throws Exception {
-        // 1) Adds a member
+        // Generates a JWT
+        String domain = "https://thegc.auth0.com/oauth/token";
+
+
+        // Adds a member
         String member = "{\"firstname\" : \"John\", \"lastname\" : \"Tyler\"}";
 
         MvcResult result = this.mvc.perform(post("/api/v1/members")
@@ -58,7 +63,7 @@ public class MemberControllerIntegrationTest {
         String responseBody = result.getResponse().getContentAsString();
         logger.debug(getPrettyJson(responseBody));
 
-        // 2) Gets all members
+        // Gets all members
         result = this.mvc.perform(get("/api/v1/members"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -66,25 +71,25 @@ public class MemberControllerIntegrationTest {
         JSONArray jsonArrayAllMembers = new JSONArray(responseBody);
         logger.debug(getPrettyJson(responseBody));
 
-        // 3) Gets the ID of the Member in position 0
+        // Gets the ID of the Member in position 0
         JSONObject jsonObject = jsonArrayAllMembers.getJSONObject(0);
         String memberId = jsonObject.getString("member_id");
 
-        // 4) Performs a Member lookup by ID
+        // Performs a Member lookup by ID
         result = this.mvc.perform(get("/api/v1/members/" + memberId))
                 .andExpect(status().isOk())
                 .andReturn();
         responseBody = result.getResponse().getContentAsString();
         logger.debug(getPrettyJson(responseBody));
 
-        // 5) Updates the member
+        // Updates the member
         String updateToPerform = "{\"lastname\" : \"Jacobs\", \"phone\" : \"8675309\"}";
         this.mvc.perform(put("/api/v1/members/" + memberId)
                 .content(updateToPerform)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-        // 6) Deletes all members
+        // Deletes all members
         // Uses the service because no member delete endpoint exists
         memberService.deleteMemberById(UUID.fromString(memberId));
         logger.debug("Deleted member with ID " + memberId);

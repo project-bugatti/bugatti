@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,20 +23,11 @@ public class MemberService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private final HttpServletRequest httpServletRequest;
-
-    @Autowired
-    public MemberService(@Qualifier("postgres") MemberDao memberDao,
-                         AuthenticationService authenticationService,
-                         HttpServletRequest httpServletRequest) {
+    public MemberService(@Qualifier("postgres") MemberDao memberDao) {
         this.memberDao = memberDao;
-        this.authenticationService = authenticationService;
-        this.httpServletRequest = httpServletRequest;
     }
 
     public Member addMember(Member memberToAdd) {
-        // Requires AuthN
-        authenticationService.verifyJWT(httpServletRequest);
         Member addedMember = memberDao.addMember(memberToAdd);
         logger.info("Added a new member " + addedMember.toString());
         return addedMember;
@@ -60,9 +50,6 @@ public class MemberService {
     }
 
     public void updateMember(Member updatedMember) {
-        // Requires AuthN
-        authenticationService.verifyJWT(httpServletRequest);
-
         // Check for null Member
         if (updatedMember == null) {
             throw new BodyParamsException(BodyParamsException.MEMBER_OBJECT_MISSING);
@@ -96,9 +83,6 @@ public class MemberService {
     }
 
     public void deleteMemberById(UUID memberId) {
-        // Requires AuthN
-        authenticationService.verifyJWT(httpServletRequest);
-
         if (memberExists(memberId)) {
             memberDao.deleteMemberById(memberId);
             logger.info("Deleted member with ID " + memberId);

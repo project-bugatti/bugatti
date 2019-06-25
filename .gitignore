@@ -28,8 +28,11 @@ HELP.md
 ### VS Code ###
 .vscode/
 
-### Properties File for Datasource ###
-/src/main/resources/datasource.properties
+### Application Properties
+/src/main/resources/application.yml
+
+### Properties for testing
+/src/test/resources/application.yml
 
 ### Logs directory
 logs/

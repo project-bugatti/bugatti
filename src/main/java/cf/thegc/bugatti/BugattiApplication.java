@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@EnableConfigurationProperties(DatasourceProperties.class)
 public class BugattiApplication {
 
     public static void main(String[] args) {
