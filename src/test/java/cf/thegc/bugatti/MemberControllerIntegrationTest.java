@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -87,11 +88,15 @@ public class MemberControllerIntegrationTest {
         String body = EntityUtils.toString(response.getEntity());
         String accessToken = new JSONObject(body).getString("access_token");
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+
+
         // Adds a member
         String member = "{\"firstname\" : \"John\", \"lastname\" : \"Tyler\"}";
 
         MvcResult result = this.mvc.perform(post("/api/v1/members")
-                .header("Authorization", "Bearer " + accessToken)
+                .headers(headers)
                 .content(member)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -121,6 +126,7 @@ public class MemberControllerIntegrationTest {
         // Updates the member
         String updateToPerform = "{\"lastname\" : \"Jacobs\", \"phone\" : \"8675309\"}";
         this.mvc.perform(put("/api/v1/members/" + memberId)
+                .headers(headers)
                 .content(updateToPerform)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

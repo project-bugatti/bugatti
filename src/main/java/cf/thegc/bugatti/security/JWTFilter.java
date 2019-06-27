@@ -9,7 +9,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
@@ -20,6 +22,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class JWTFilter implements Filter {
 
     private final static Logger logger = LoggerFactory.getLogger(JWTFilter.class);
@@ -31,12 +34,20 @@ public class JWTFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        String jwt = this.resolveToken(httpServletRequest);
-        if (StringUtils.hasText(jwt)) {
-            if (this.validateToken(jwt)) {
-                filterChain.doFilter(servletRequest, servletResponse);
-            }
+
+        // Allow all GET requests
+        if (httpServletRequest.getMethod().equals(HttpMethod.GET.toString())) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
         }
+
+        String jwt = this.resolveToken(httpServletRequest);
+        if (StringUtils.hasText(jwt) && this.validateToken(jwt)) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        // Return unauthorized if not passed to chain already
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
     }
@@ -77,4 +88,18 @@ public class JWTFilter implements Filter {
             return false;
         }
     }
+
+//    @Bean
+//    public FilterRegistrationBean jwtFilterRegistration() {
+//        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+//        filterRegistrationBean.setFilter(new JWTFilter());
+//        filterRegistrationBean.setName("JWTFilter");
+//        filterRegistrationBean.addUrlPatterns("/api/v1/members/*");
+//        return filterRegistrationBean;
+//    }
+//
+//    @Bean(name = "JWTFilter")
+//    public Filter getJWTFilter() {
+//        return new JWTFilter();
+//    }
 }
