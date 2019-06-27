@@ -9,13 +9,12 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Date;
@@ -38,22 +37,17 @@ public class JWTFilter implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
             }
         }
+        HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+        httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
     }
 
-    @Override
-    public void destroy() {
-    }
-
-    @Override
-    public void init(FilterConfig arg0) throws ServletException {
-    }
 
     private String resolveToken(HttpServletRequest httpServletRequest) {
         String bearerToken = httpServletRequest.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER)) {
             return bearerToken.substring(BEARER.length());
         }
-        logger.debug("Authorization header improperly formatted");
+        logger.debug("Authorization header improperly formatted or missing");
         return null;
     }
 
