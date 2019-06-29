@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  api:
+    image: bugatti:0.1-SNAPSHOT
+    ports: 8080:8080
+    volumes:
+      - api-logs:/logs
+      - 
+volumes:
+  api-logs:

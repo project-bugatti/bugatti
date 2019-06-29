@@ -10,7 +10,7 @@
     </parent>
     <groupId>cf.thegc</groupId>
     <artifactId>bugatti</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <name>bugatti</name>
     <description>Rest API for The GC</description>
 
@@ -74,26 +74,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.30.0</version>
-                <configuration>
-                    <images>
-                        <image>
-                            <name>bugatti:${project.version}</name>
-                            <alias>bugatti</alias>
-                            <build>
-                                <from>openjdk:8-jre-slim</from>
-                                <assembly>
-                                    <descriptorRef>artifact</descriptorRef>
-                                </assembly>
-                                <cmd>java -jar maven/${project.name}-${project.version}.jar</cmd>
-                            </build>
-                        </image>
-                    </images>
-                </configuration>
             </plugin>
         </plugins>
     </build>
