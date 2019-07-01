@@ -1,10 +1,17 @@
-version: "3.7"
+version: "3"
 services:
   api:
     image: bugatti:0.1-SNAPSHOT
-    ports: 8080:8080
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: maven/gcmedia.json
+    ports:
+      - "8080:8080"
     volumes:
       - api-logs:/logs
-      - 
+    logging:
+      driver: gcplogs
+      options:
+        gcp-project: gcmedia
+
 volumes:
   api-logs:

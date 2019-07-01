@@ -87,7 +87,16 @@
                             <build>
                                 <from>openjdk:8-jre-slim</from>
                                 <assembly>
-                                    <descriptorRef>artifact</descriptorRef>
+                                    <inline>
+                                        <files>
+                                            <file>
+                                                <source>/target/${project.name}-${project.version}.jar</source>
+                                            </file>
+                                            <file>
+                                                <source>gcmedia.json</source>
+                                            </file>
+                                        </files>
+                                    </inline>
                                 </assembly>
                                 <cmd>java -jar maven/${project.name}-${project.version}.jar</cmd>
                             </build>
