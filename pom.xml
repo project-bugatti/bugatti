@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <docker.appDir>app</docker.appDir>
     </properties>
 
     <dependencies>
@@ -87,18 +88,9 @@
                             <build>
                                 <from>openjdk:8-jre-slim</from>
                                 <assembly>
-                                    <inline>
-                                        <files>
-                                            <file>
-                                                <source>/target/${project.name}-${project.version}.jar</source>
-                                            </file>
-                                            <file>
-                                                <source>gcmedia.json</source>
-                                            </file>
-                                        </files>
-                                    </inline>
+                                    <descriptorRef>artifact</descriptorRef>
                                 </assembly>
-                                <cmd>java -jar maven/${project.name}-${project.version}.jar</cmd>
+                                <cmd>java -jar ${docker.appDir}/${project.name}-${project.version}.jar</cmd>
                             </build>
                         </image>
                     </images>
