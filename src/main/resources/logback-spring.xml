@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <property name="LOGS" value="./logs" />
+    <property name="LOGS" value="./logs"/>
 
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
@@ -58,16 +58,27 @@
         </rollingPolicy>
     </appender>
 
+    <appender name="Cloud" class="com.google.cloud.logging.logback.LoggingAppender">
+        <!-- Optional : filter logs at or above a level -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <log>application.log</log> <!-- Optional : default java.log -->
+        <resourceType>api</resourceType> <!-- Optional : default: auto-detected, fallback: global -->
+        <flushLevel>WARN</flushLevel> <!-- Optional : default ERROR -->
+    </appender>
+
     <!-- LOG everything at INFO level -->
     <root level="info">
-        <appender-ref ref="Console" />
+        <appender-ref ref="Console"/>
     </root>
 
     <!-- LOG "com.plantplaces.*" at TRACE level -->
     <logger name="cf.thegc" level="trace" additivity="false">
-        <appender-ref ref="Console" />
-        <appender-ref ref="RollingFile" />
-        <appender-ref ref="SevereRollingFile" />
+        <appender-ref ref="Console"/>
+        <appender-ref ref="RollingFile"/>
+        <appender-ref ref="SevereRollingFile"/>
+        <appender-ref ref="Cloud"/>
     </logger>
 
 </configuration>

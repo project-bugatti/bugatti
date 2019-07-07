@@ -55,6 +55,13 @@
             <version>0.8.2</version>
         </dependency>
 
+        <!-- logging driver -->
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-logging-logback</artifactId>
+            <version>0.97.0-alpha</version>
+        </dependency>
+
         <!-- Testing Dependencies -->
         <dependency>
             <groupId>com.h2database</groupId>
