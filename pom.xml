@@ -90,7 +90,7 @@
                                 <assembly>
                                     <descriptorRef>artifact</descriptorRef>
                                 </assembly>
-                                <cmd>java -jar ${docker.appDir}/${project.name}-${project.version}.jar</cmd>
+                                <cmd>java -jar maven/${project.name}-${project.version}.jar</cmd>
                             </build>
                         </image>
                     </images>
