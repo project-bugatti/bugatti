@@ -64,7 +64,8 @@
             <level>INFO</level>
         </filter>
         <log>application.log</log> <!-- Optional : default java.log -->
-        <resourceType>api</resourceType> <!-- Optional : default: auto-detected, fallback: global -->
+        <resourceType>api</resourceType>
+        <enhancer>cf.thegc.bugatti.logging.StackDriverLoggingEnhancer</enhancer>
         <flushLevel>WARN</flushLevel> <!-- Optional : default ERROR -->
     </appender>
 
