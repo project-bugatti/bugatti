@@ -36,3 +36,7 @@ HELP.md
 
 ### Logs directory
 logs/
+
+### Ignore all config files except for the help file
+config/*
+!config/help.txt

@@ -21,7 +21,7 @@ public class MemberService {
 
     private final MemberDao memberDao;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    
+
     @Autowired
     public MemberService(@Qualifier("postgres") MemberDao memberDao) {
         this.memberDao = memberDao;

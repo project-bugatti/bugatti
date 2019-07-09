@@ -29,6 +29,7 @@ public class JWTFilter implements Filter {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER = "Bearer ";
     private final static String AUTH0_DOMAIN = "https://thegc.auth0.com/.well-known/jwks.json";
+    public final static String PASS_KEY = "REQUESTING_MEMBER_ID";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
@@ -88,18 +89,4 @@ public class JWTFilter implements Filter {
             return false;
         }
     }
-
-//    @Bean
-//    public FilterRegistrationBean jwtFilterRegistration() {
-//        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-//        filterRegistrationBean.setFilter(new JWTFilter());
-//        filterRegistrationBean.setName("JWTFilter");
-//        filterRegistrationBean.addUrlPatterns("/api/v1/members/*");
-//        return filterRegistrationBean;
-//    }
-//
-//    @Bean(name = "JWTFilter")
-//    public Filter getJWTFilter() {
-//        return new JWTFilter();
-//    }
 }

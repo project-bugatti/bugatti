@@ -8,6 +8,7 @@ public class StackDriverLoggingEnhancer implements LoggingEnhancer {
 
     @Override
     public void enhanceLogEntry(LogEntry.Builder logEntry) {
-        logEntry.addLabel("version", BugattiApplication.APPLICATION_VERSION);
+        logEntry.addLabel("application_name", BugattiApplication.APPLICATION_NAME);
+        logEntry.addLabel("application_version", BugattiApplication.APPLICATION_VERSION);
     }
 }

@@ -1,0 +1,3 @@
+In this directory, add a Application Default Credentials file named "google_stackdriver_creds.json"
+
+https://cloud.google.com/docs/authentication/production
